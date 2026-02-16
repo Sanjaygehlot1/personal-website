@@ -1,4 +1,3 @@
-// types/index.ts
 
 export interface Experience {
   id: string;
@@ -65,4 +64,11 @@ export interface PersonalInfo {
   status: string;
   bio?: string;
   socialLinks: SocialLink[];
+}
+
+export interface SkillsInfo {
+  frontend: string[]
+  backend: string[]
+  cloud: string[]
+  devops: string[]
 }

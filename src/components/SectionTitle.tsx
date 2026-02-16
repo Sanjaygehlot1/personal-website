@@ -1,4 +1,3 @@
-// components/SectionTitle.tsx
 
 import React from 'react';
 

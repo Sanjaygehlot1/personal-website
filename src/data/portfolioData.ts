@@ -1,13 +1,19 @@
-// data/portfolioData.ts
 
-import type { PersonalInfo, Experience, Education, Certification, Project, BlogPost } from '../types/index';
+import type { PersonalInfo, Experience, Education, Certification, Project, BlogPost, SkillsInfo } from '../types/index';
+
+export const skillsData: SkillsInfo = {
+  frontend: ['React', 'TypeScript', 'Next.js', 'Vue.js', 'Tailwind CSS', 'Redux'],
+  backend: ['Node.js', 'Express', 'Python', 'Django', 'FastAPI', 'PostgreSQL', 'MongoDB'],
+  devops: ['Docker', 'Kubernetes', 'Jenkins', 'GitHub Actions', 'Terraform', 'Ansible'],
+  cloud: ['AWS', 'Google Cloud', 'Azure', 'DigitalOcean', 'Vercel', 'Netlify'],
+}
 
 export const personalInfo: PersonalInfo = {
-  name: 'Your Name',
+  name: 'Sanjay Gehlot',
   title: 'Full Stack Developer | DevOps | Cloud Engineer',
-  email: 'your.email@example.com',
-  location: 'Your City, Country',
-  avatar: '/avatar.jpg', // Replace with your image path
+  email: 'email@example.com',
+  location: 'Mumbai, IND',
+  avatar: '/avatar.jpg',
   cvUrl: '/resume.pdf',
   status: 'Open for opportunities',
   bio: 'Passionate Full Stack Developer with expertise in DevOps and Cloud Engineering. Specialized in building scalable applications and automating infrastructure.',

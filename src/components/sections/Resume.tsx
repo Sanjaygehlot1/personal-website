@@ -1,131 +1,108 @@
-// components/sections/Resume.tsx
-
 import React from 'react';
-import SectionTitle from '../SectionTitle';
-import type { Experience, Education, Certification } from '../../types/index';
-import { Briefcase, GraduationCap, Award } from 'lucide-react';
+import { Box, Typography, Stack, Grid } from '@mui/material';
+import { BusinessCenter, School } from '@mui/icons-material';
 
-interface ResumeProps {
-  experiences: Experience[];
-  education: Education[];
-  certifications: Certification[];
-}
+const TimelineItem = ({ title, company, date, desc }: any) => (
+  <Box sx={{ position: 'relative', pl: 4.5, pb: 4, '&:last-child': { pb: 0 } }}>
+    {/* Continuous Line */}
+    <Box sx={{ 
+      position: 'absolute', 
+      left: 0, 
+      top: 6, 
+      bottom: 0, 
+      width: '1px', 
+      bgcolor: '#333',
+      // Hide line for last item to look cleaner if desired
+    }} />
+    
+    {/* Glowing Dot */}
+    <Box sx={{ 
+      position: 'absolute', 
+      left: -5.5, 
+      top: 6, 
+      width: 12, 
+      height: 12, 
+      borderRadius: '50%', 
+      bgcolor: 'primary.main',
+      boxShadow: '0 0 0 4px rgba(59, 130, 246, 0.15)',
+      zIndex: 2
+    }} />
 
-const Resume: React.FC<ResumeProps> = ({ experiences, education, certifications }) => {
+    <Typography variant="h6" sx={{ color: 'white', fontSize: '1.1rem', mb: 0.5 }}>
+      {title}
+    </Typography>
+    <Typography variant="body2" sx={{ color: 'text.secondary', mb: 0.5 }}>
+      {company} <Box component="span" sx={{ color: 'primary.main', mx: 0.5 }}>•</Box> {date}
+    </Typography>
+    <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
+      {desc}
+    </Typography>
+  </Box>
+);
+
+const SectionHeader = ({ icon, title }: any) => (
+  <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
+    <Box sx={{ 
+      p: 1.5, 
+      bgcolor: '#252525', 
+      borderRadius: 3, 
+      color: 'primary.main',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      {icon}
+    </Box>
+    <Typography variant="h5">{title}</Typography>
+  </Stack>
+);
+
+const Resume = () => {
   return (
-    <div className="min-h-screen bg-[#0f1115] py-12 px-8">
-      <div className="max-w-6xl mx-auto">
-        <SectionTitle title="Resume" />
+    <Box sx={{ p: { xs: 3, md: 5 } }}>
+      <Box sx={{ mb: 5 }}>
+        <Typography variant="h4" sx={{ mb: 1.5 }}>Resume</Typography>
+        <Box sx={{ width: 50, height: 5, bgcolor: 'primary.main', borderRadius: 2 }} />
+      </Box>
 
-        {/* Experience Section */}
-        <div className="mb-12">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-              <Briefcase className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-2xl font-bold text-white">Experience</h3>
-          </div>
+      <Grid container spacing={6}>
+        <Grid item xs={12} md={6}>
+          <SectionHeader icon={<BusinessCenter />} title="Experience" />
+          <Box sx={{ mt: 2 }}>
+            <TimelineItem 
+              title="Senior DevOps Engineer"
+              company="Gramedia"
+              date="May 2024 - Present"
+              desc="Enhanced system availability and performance by developing a Static Management System utilizing Cache and CDN."
+            />
+            <TimelineItem 
+              title="Cloud Engineer"
+              company="Tech Solutions"
+              date="2022 - 2024"
+              desc="Managed AWS infrastructure and automated CI/CD pipelines using Jenkins and GitHub Actions."
+            />
+          </Box>
+        </Grid>
 
-          <div className="space-y-6">
-            {experiences.map((exp) => (
-              <div 
-                key={exp.id}
-                className="bg-[#1a1d23] rounded-2xl p-8 border border-gray-800 hover:border-blue-500/50 transition-all duration-300"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <div className="flex items-center space-x-3 mb-2">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                      <h4 className="text-xl font-bold text-white">
-                        {exp.company} <span className="text-gray-400 font-normal">as {exp.position}</span>
-                      </h4>
-                    </div>
-                    <p className="text-gray-400 ml-6">{exp.location}</p>
-                    <p className="text-gray-500 text-sm ml-6">{exp.period}</p>
-                  </div>
-                </div>
-                <ul className="ml-6 space-y-2">
-                  {exp.responsibilities.map((resp, index) => (
-                    <li key={index} className="text-gray-300 flex items-start">
-                      <span className="text-orange-500 mr-2">-</span>
-                      <span>{resp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Education and Certifications Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Education Section */}
-          <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">Education</h3>
-            </div>
-
-            <div className="space-y-4">
-              {education.map((edu) => (
-                <div 
-                  key={edu.id}
-                  className="bg-[#1a1d23] rounded-2xl p-6 border border-gray-800 hover:border-blue-500/50 transition-all duration-300"
-                >
-                  <div className="flex items-start space-x-3 mb-3">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full mt-1"></div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white">{edu.institution}</h4>
-                      <p className="text-gray-400 text-sm">{edu.period}</p>
-                    </div>
-                  </div>
-                  <div className="ml-6">
-                    <p className="text-gray-300">{edu.degree}</p>
-                    {edu.field && <p className="text-gray-400 text-sm">focused on {edu.field}</p>}
-                    <p className="text-gray-500 text-sm mt-1">{edu.location}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Certifications Section */}
-          <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                <Award className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">Nonformal Education</h3>
-            </div>
-
-            <div className="space-y-4">
-              {certifications.map((cert) => (
-                <div 
-                  key={cert.id}
-                  className="bg-[#1a1d23] rounded-2xl p-6 border border-gray-800 hover:border-blue-500/50 transition-all duration-300"
-                >
-                  <div className="flex items-start space-x-3 mb-3">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full mt-1"></div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white">{cert.name}</h4>
-                      <p className="text-gray-400 text-sm">
-                        {cert.period} {cert.hours && `( ${cert.hours})`}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="ml-6">
-                    <p className="text-gray-300 mb-2">{cert.description}</p>
-                    <p className="text-gray-500 text-sm">{cert.mode}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Grid item xs={12} md={6}>
+          <SectionHeader icon={<School />} title="Education" />
+          <Box sx={{ mt: 2 }}>
+            <TimelineItem 
+              title="University of Brawijaya"
+              company="Computer Science"
+              date="2015 - 2020"
+              desc="Specialized in Network Engineering and Cloud Infrastructure."
+            />
+             <TimelineItem 
+              title="Digital Talent Scholarship"
+              company="Kominfo"
+              date="2019"
+              desc="Completed intense training on Cloud Computing and Cybersecurity."
+            />
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

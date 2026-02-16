@@ -1,152 +1,180 @@
-
 import React from 'react';
-import { Mail, MapPin, Download, Facebook, Twitter, Instagram, Linkedin, Github, Globe } from 'lucide-react';
-import type { PersonalInfo } from '../types';
+import { Box, Typography, Stack, IconButton, Divider, Card, Avatar, Grid } from '@mui/material';
+import {
+  Facebook as FacebookIcon,
+  Twitter as TwitterIcon,
+  Instagram as InstagramIcon,
+  LinkedIn as LinkedInIcon,
+  GitHub as GitHubIcon,
+  Language as LanguageIcon,
+  EmailOutlined,
+  LocationOnOutlined,
+  DownloadOutlined,
+  Flag,
+} from '@mui/icons-material';
 
-interface HeaderProps {
-  personalInfo: PersonalInfo;
-  showFullHeader?: boolean;
+interface ProfileHeaderProps {
+  personalInfo?: {
+    name: string;
+    title: string;
+    avatar: string;
+    email: string;
+    location: string;
+    cvUrl?: string;
+    socialLinks: {
+      icon: string;
+      url: string;
+    }[];
+  };
 }
 
-const Header: React.FC<HeaderProps> = ({ personalInfo, showFullHeader = true }) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
+  const name = personalInfo?.name || 'Aditya Pratama';
+  const title = personalInfo?.title || 'DevOps | SRE | Cloud Engineer';
+  const avatar = personalInfo?.avatar;
+  const email = personalInfo?.email || 'aditya@adityacprtm.dev';
+  const location = personalInfo?.location || 'Jakarta, ID';
+  const cvUrl = personalInfo?.cvUrl || '#';
+  const socialLinks = personalInfo?.socialLinks || [];
+
   const getIcon = (iconName: string) => {
     const icons: { [key: string]: any } = {
-      facebook: Facebook,
-      twitter: Twitter,
-      instagram: Instagram,
-      linkedin: Linkedin,
-      github: Github,
-      portfolio: Globe,
+      facebook: FacebookIcon,
+      twitter: TwitterIcon,
+      instagram: InstagramIcon,
+      linkedin: LinkedInIcon,
+      github: GitHubIcon,
+      portfolio: LanguageIcon,
     };
-    return icons[iconName] || Globe;
+    return icons[iconName.toLowerCase()] || LanguageIcon;
   };
 
-  if (!showFullHeader) {
-    return (
-      <header className="bg-[#23272f] border-b border-[#2a2e38] py-3 px-8 flex justify-between items-center">
-        <div className="flex items-center space-x-3">
-          <MapPin className="w-4 h-4 text-[#9ca3af]" strokeWidth={2} />
-          <span className="text-[#d1d5db] text-sm">{personalInfo.location}</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <div className="w-2.5 h-2.5 bg-[#ec4899] rounded-full animate-pulse"></div>
-        </div>
-      </header>
-    );
-  }
-
   return (
-    <header className="bg-[#23272f] relative overflow-hidden border-b border-[#2a2e38]">
-      {/* Decorative Background Shapes */}
-      <div className="absolute top-0 left-0 z-0">
-        {/* Red large triangle */}
-        <div className="w-0 h-0 border-t-[180px] border-t-transparent border-l-[180px] border-l-[#dc2626] border-b-[180px] border-b-transparent opacity-80"></div>
-      </div>
-      
-      <div className="absolute top-0 left-28 flex z-0">
-        <div className="w-24 h-14 bg-[#06b6d4]"></div>
-        <div className="w-24 h-14 bg-[#3b82f6]"></div>
-        <div className="w-28 h-14 bg-[#f97316]"></div>
-        <div className="w-24 h-14 bg-[#fbbf24]"></div>
-      </div>
-      
-      <div className="absolute top-0 right-0 z-0">
-        <div className="w-0 h-0 border-t-[220px] border-t-transparent border-r-[220px] border-r-[#06b6d4] border-b-[220px] border-b-transparent opacity-70"></div>
-      </div>
-
-      <div className="absolute top-16 right-20 z-0">
-        <div className="w-0 h-0 border-t-[80px] border-t-transparent border-r-[80px] border-r-[#fbbf24] border-b-[80px] border-b-transparent opacity-50"></div>
-      </div>
-
-      <div className="relative z-10 py-10 px-12 flex items-center justify-between max-w-[1600px] mx-auto">
-        {/* Profile Section */}
-        <div className="flex items-center space-x-10">
-          {/* Avatar with decorative background */}
-          <div className="relative">
-            <div className="absolute -top-10 -left-10 w-0 h-0 border-t-[120px] border-t-transparent border-l-[120px] border-l-[#f97316] border-b-[120px] border-b-transparent opacity-40"></div>
-            <div className="relative bg-[#1a1d23] rounded-[32px] p-2.5 shadow-2xl">
-              <img
-                src={personalInfo.avatar}
-                alt={personalInfo.name}
-                className="w-36 h-36 rounded-[26px] object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/144?text=Avatar';
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Name and Title */}
-          <div>
-            <h1 className="text-[40px] font-bold text-white mb-2 leading-tight">
-              {personalInfo.name.split(' ')[0]}{' '}
-              <span className="text-[#d1d5db] font-normal">{personalInfo.name.split(' ').slice(1).join(' ')}</span>
-            </h1>
-            <p className="text-[#9ca3af] text-[17px] mb-5 font-light">{personalInfo.title}</p>
-            
-            {/* Social Links */}
-            <div className="flex space-x-3.5">
-              {personalInfo.socialLinks.map((social, index) => {
-                const Icon = getIcon(social.icon);
-                return (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#6b7280] hover:text-[#06b6d4] transition-colors duration-200"
-                    aria-label={social.label}
-                  >
-                    <Icon className="w-[18px] h-[18px]" strokeWidth={1.5} />
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Info */}
-        <div className="text-right space-y-5">
-          <div>
-            <p className="text-[#6b7280] text-[11px] mb-1.5 uppercase tracking-wider font-semibold">EMAIL</p>
-            <a href={`mailto:${personalInfo.email}`} className="text-white text-[15px] hover:text-[#06b6d4] transition-colors flex items-center justify-end space-x-2">
-              <span>{personalInfo.email}</span>
-              <Mail className="w-4 h-4" strokeWidth={2} />
-            </a>
-          </div>
+    <Box sx={{ display: 'flex', mt: '45px', justifyContent: 'center', alignItems: 'center', width: '100%', px: 2 }}>
+      <Card
+        sx={{
+          width: '100%',
+          maxWidth: 1100,
+          position: 'relative',
+          overflow: 'visible',
+          border: '1px solid #333',
+          borderRadius: 5,
           
-          {personalInfo.cvUrl && (
-            <div>
-              <p className="text-[#6b7280] text-[11px] mb-1.5 uppercase tracking-wider font-semibold">CV</p>
-              <a 
-                href={personalInfo.cvUrl} 
-                download
-                className="text-white text-[15px] hover:text-[#06b6d4] transition-colors flex items-center justify-end space-x-2"
-              >
-                <span>Download</span>
-                <Download className="w-4 h-4" strokeWidth={2} />
-              </a>
-            </div>
-          )}
+          bgcolor: '#23262b',       
+          backgroundImage: 'none', 
+          boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+        }}
+      >
+        <Box
+          sx={{
+            position: 'relative',
+            zIndex: 1,
+            p: { xs: 3, md: 5 },
+            pt: { xs: 9, md: 5 }, 
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: { xs: 'center', md: 'center' },
+            justifyContent: 'space-between',
+          }}
+        >
           
-          <div>
-            <p className="text-[#6b7280] text-[11px] mb-1.5 uppercase tracking-wider font-semibold">LOCATION</p>
-            <div className="text-white text-[15px] flex items-center justify-end space-x-2">
-              <span>{personalInfo.location}</span>
-              <MapPin className="w-4 h-4" strokeWidth={2} />
-            </div>
-          </div>
-          
-          <div>
-            <p className="text-[#6b7280] text-[11px] mb-1.5 uppercase tracking-wider font-semibold">STATUS</p>
-            <div className="flex items-center justify-end space-x-2">
-              <div className="w-2.5 h-2.5 bg-[#ec4899] rounded-full animate-pulse shadow-lg shadow-pink-500/50"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: -45, 
+              left: { xs: '50%', md: 45 },
+              transform: { xs: 'translateX(-50%)', md: 'none' },
+              width: 140,
+              height: 140,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                inset: 0,
+                backgroundColor: '#23262b',
+                borderRadius: '40px', 
+                boxShadow: '0 -10px 20px rgba(0,0,0,0.2)',
+                zIndex: -1,
+              }
+            }}
+          >
+            <Avatar
+              src={avatar}
+              alt={name}
+              sx={{
+                width: 120,
+                height: 120,
+                borderRadius: '50%',
+                border: '4px solid #23262b', 
+              }}
+              imgProps={{ onError: (e) => (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120' }}
+            />
+          </Box>
+
+          <Box sx={{ flex: 1, ml: { xs: 0, md: '170px' }, textAlign: { xs: 'center', md: 'left' }, width: '100%', mt: {xs:"30px", sm: "30px",md: 0},  p: { xs: "0px", sm: "0px", md: 0 } }}>
+            <Typography variant="h4" sx={{ fontSize: { xs: '1rem', md: '1.5rem' }, fontWeight: 700, color: 'white', letterSpacing: 0.5 }}>
+              {name.split(' ')[0]} <Box component="span" sx={{ fontWeight: 400, color: '#9ca3af' }}>{name.split(' ').slice(1).join(' ')}</Box>
+            </Typography>
+
+            <Typography variant="body1" sx={{ mt: 0.5, mb: 2, color: '#9ca3af', fontSize: '0.9rem' }}>
+              {title}
+            </Typography>
+
+            {/* Social Icons */}
+            <Stack direction="row" spacing={1} justifyContent={{ xs: 'center', md: 'flex-start' }} sx={{ mb: { xs: 0, md: 0 } }}>
+              {socialLinks.length > 0 ? socialLinks.map((s, i) => {
+                const Icon = getIcon(s.icon);
+                return <IconButton key={i} href={s.url} size="small" sx={{ color: '#6b7280', '&:hover': { color: 'white' } }}><Icon fontSize="small" /></IconButton>
+              }) : (
+                [FacebookIcon, TwitterIcon, InstagramIcon, LinkedInIcon, GitHubIcon, Flag].map((Icon, i) => (
+                  <IconButton key={i} size="small" sx={{ color: '#6b7280', '&:hover': { color: 'white' } }}><Icon fontSize="small" /></IconButton>
+                ))
+              )}
+            </Stack>
+          </Box>
+
+          <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', md: 'block' }, borderColor: 'rgba(255,255,255,0.08)', mx: 4 }} />
+          <Divider orientation="horizontal" flexItem sx={{ display: { xs: 'block', md: 'none' }, borderColor: 'rgba(255,255,255,0.08)', width: '100%', my: 3 }} />
+
+          <Grid container spacing={3} sx={{ maxWidth: { md: 450 }, width: '100%' }}>
+
+            <Grid item xs={6} md={6}>
+              <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>EMAIL</Typography>
+              <Stack direction="row" alignItems="center" spacing={1} component="a" href={`mailto:${email}`} sx={{ textDecoration: 'none', color: 'white', '&:hover': { color: '#60a5fa' } }}>
+                <Typography variant="body2" noWrap sx={{ fontSize: '0.85rem', maxWidth: { xs: '140px', md: '100%' } }}>{email}</Typography>
+                <EmailOutlined sx={{ fontSize: 14, color: '#9ca3af' }} />
+              </Stack>
+            </Grid>
+
+            <Grid item xs={6} md={6}>
+              <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>CV</Typography>
+              <Stack direction="row" alignItems="center" spacing={1} component="a" href={cvUrl} download sx={{ textDecoration: 'none', color: 'white', '&:hover': { color: '#60a5fa' } }}>
+                <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>Download</Typography>
+                <DownloadOutlined sx={{ fontSize: 14, color: '#9ca3af' }} />
+              </Stack>
+            </Grid>
+
+            <Grid item xs={6} md={6}>
+              <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>LOCATION</Typography>
+              <Stack direction="row" alignItems="center" spacing={1} sx={{ color: 'white' }}>
+                <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>{location}</Typography>
+                <LocationOnOutlined sx={{ fontSize: 14, color: '#9ca3af' }} />
+              </Stack>
+            </Grid>
+
+            <Grid item xs={6} md={6}>
+              <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>STATUS</Typography>
+              <Box sx={{ fontSize: '0.85rem' }}>🍉</Box>
+            </Grid>
+
+          </Grid>
+        </Box>
+      </Card>
+    </Box>
   );
 };
 
-export default Header;
+export default ProfileHeader;

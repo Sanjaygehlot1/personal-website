@@ -1,69 +1,88 @@
-// App.tsx
-
-import React, { useState } from 'react';
-import BackgroundShapes from './components/BackgroundShapes';
+import { useState } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { Box, Container, Fade, Stack, useMediaQuery } from '@mui/material';
+import { theme } from './utils/theme'
 import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import About from './components/sections/About';
+import ProfileHeader from './components/Header';
 import Resume from './components/sections/Resume';
 import Portfolio from './components/sections/Portfolio';
-import Blog from './components/sections/Blogs';
 import Contact from './components/sections/Contact';
-import {
-  personalInfo,
-  experiences,
-  education,
-  certifications,
-  projects,
-  blogPosts,
-} from './data/portfolioData';
+import GeometricSBackground from './components/GeometricS';
 
-const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('about');
 
-  const renderSection = () => {
+const About = () => <Box sx={{ p: 4, color: 'text.secondary' }}>About Content</Box>;
+const Blog = () => <Box sx={{ p: 4, color: 'text.secondary' }}>Blog Content</Box>;
+
+function App() {
+  const [activeSection, setActiveSection] = useState('resume');
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const renderContent = () => {
     switch (activeSection) {
-      case 'about':
-        return <About personalInfo={personalInfo} />;
-      case 'resume':
-        return (
-          <Resume
-            experiences={experiences}
-            education={education}
-            certifications={certifications}
-          />
-        );
-      case 'portfolio':
-        return <Portfolio projects={projects} />;
-      case 'blog':
-        return <Blog posts={blogPosts} />;
-      case 'contact':
-        return <Contact personalInfo={personalInfo} />;
-      default:
-        return <About personalInfo={personalInfo} />;
+      case 'about': return <About />;
+      case 'resume': return <Resume />;
+      case 'portfolio': return <Portfolio />;
+      case 'blog': return <Blog />;
+      case 'contact': return <Contact />;
+      default: return <Resume />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#0f1115] text-white flex justify-center">
-      <BackgroundShapes />
+    <ThemeProvider theme={theme}>
+      <GeometricSBackground />
+      <Box
+        sx={{
+          minHeight: '100vh',
+          bgcolor: '#23262b', 
+        }}
+      >
+        <Container maxWidth="lg" sx={{ py: { xs: 2, md: 6 }, px: { xs: 2, md: 4 } }}>
+          <Box sx={{ flex: 1, height: "40%", width: '100%', mb: 4, pb: 0 }}>
+            <ProfileHeader />
+          </Box>
 
-      <div className="w-full max-w-[1920px] flex relative">
-        <div className="w-64 flex-shrink-0">
-          <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
-        </div>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            spacing={4}
+            alignItems="flex-start"
+          >
 
-        <div className="flex-1 relative z-10 min-h-screen">
-          <Header 
-            personalInfo={personalInfo} 
-            showFullHeader={activeSection === 'about' || activeSection === 'portfolio'}
-          />
+            <Box
+              sx={{
+                width: { xs: '100%', md: 'auto' },
+                minWidth: { md: '120px' },
+                position: { md: 'sticky' },
+                top: { md: 100 },
+                zIndex: 10
+              }}
+            >
+              <Sidebar activeSection={activeSection} setSection={setActiveSection} />
+            </Box>
 
-          <main>{renderSection()}</main>
-        </div>
-      </div>
-    </div>
+            <Box sx={{ flex: 1, width: '100%' }}>
+              <Fade in key={activeSection} timeout={400}>
+                <Box
+                  sx={{
+                    bgcolor: '#23262b',
+                    borderRadius: 4,
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    minHeight: 500,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)'
+                  }}
+                >
+                  {renderContent()}
+                </Box>
+              </Fade>
+            </Box>
+
+          </Stack>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
-};
+}
 
 export default App;
