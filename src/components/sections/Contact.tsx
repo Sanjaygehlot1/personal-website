@@ -10,7 +10,6 @@ const Contact = () => {
         <Box sx={{ flex: 1, height: 2, bgcolor: '#3b82f6', borderRadius: 1, maxWidth: 100 }} />
       </Stack>
 
-      {/* Map or Image Placeholder */}
       <Box sx={{ height: 200, width: '100%', bgcolor: '#2d2d2d', borderRadius: 4, mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Typography color="text.secondary">Map / Location Visualization</Typography>
       </Box>

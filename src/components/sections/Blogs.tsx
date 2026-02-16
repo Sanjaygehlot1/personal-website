@@ -21,11 +21,12 @@ import {
 import SectionTitle from '../SectionTitle';
 import type { BlogPost } from '../../types/index';
 
+
 interface BlogProps {
   posts: BlogPost[];
 }
 
-const Blogs: React.FC<BlogProps> = ({ posts }) => {
+const Blogs: React.FC = () => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = date.getDate();
@@ -84,9 +85,7 @@ const Blogs: React.FC<BlogProps> = ({ posts }) => {
                         },
                       }}
                     >
-                      {/* Image Section with Date Badge */}
                       <Box sx={{ position: 'relative' }}>
-                        {/* Date Badge */}
                         <Box
                           sx={{
                             position: 'absolute',
@@ -142,7 +141,6 @@ const Blogs: React.FC<BlogProps> = ({ posts }) => {
                           }}
                         />
 
-                        {/* Overlay with Tech Stack */}
                         <Box
                           sx={{
                             position: 'absolute',
@@ -184,7 +182,6 @@ const Blogs: React.FC<BlogProps> = ({ posts }) => {
                         </Box>
                       </Box>
 
-                      {/* Content Section */}
                       <CardContent sx={{ p: 4, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                         <Typography
                           variant="h6"
@@ -240,7 +237,6 @@ const Blogs: React.FC<BlogProps> = ({ posts }) => {
                           ))}
                         </Stack>
 
-                        {/* Read More Button */}
                         <Box sx={{ mt: 'auto' }}>
                           <Button
                             endIcon={<ArrowForwardIcon />}

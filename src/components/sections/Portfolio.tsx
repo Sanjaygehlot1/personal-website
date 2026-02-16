@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Typography, Tabs, Tab, Grid, Card, CardContent } from '@mui/material';
-
+import { AnimatePresence, motion } from 'framer-motion';
 const PortfolioCard = ({ title, category, image }: any) => (
-  <Card 
-    sx={{ 
-      height: '100%', 
+  <Card
+    sx={{
+      height: '100%',
       bgcolor: 'transparent',
       boxShadow: 'none',
       cursor: 'pointer',
@@ -12,24 +12,23 @@ const PortfolioCard = ({ title, category, image }: any) => (
       '&:hover .title': { color: 'primary.main' }
     }}
   >
-    <Box 
+    <Box
       className="image-box"
-      sx={{ 
-        height: 180, 
-        bgcolor: '#2d2d2d', 
-        borderRadius: 3, 
+      sx={{
+        height: 180,
+        bgcolor: '#2d2d2d',
+        borderRadius: 3,
         overflow: 'hidden',
         mb: 2,
         transition: 'transform 0.3s ease',
         position: 'relative'
       }}
     >
-      {/* Placeholder Image Logic */}
-      <Box 
-        component="img" 
-        src={image} 
+      <Box
+        component="img"
+        src={image}
         alt={title}
-        sx={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} 
+        sx={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
       />
     </Box>
     <Box>
@@ -53,14 +52,14 @@ const Portfolio = () => {
         <Box sx={{ width: 50, height: 5, bgcolor: 'primary.main', borderRadius: 2 }} />
       </Box>
 
-      <Tabs 
-        value={tab} 
-        onChange={(e, v) => setTab(v)} 
-        sx={{ 
+      <Tabs
+        value={tab}
+        onChange={(e, v) => setTab(v)}
+        sx={{
           mb: 4,
-          '& .MuiTab-root': { 
-            color: 'text.secondary', 
-            textTransform: 'none', 
+          '& .MuiTab-root': {
+            color: 'text.secondary',
+            textTransform: 'none',
             fontSize: '1rem',
             fontWeight: 500,
             mr: 2
@@ -74,29 +73,31 @@ const Portfolio = () => {
         <Tab label="Projects" />
       </Tabs>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
-          <PortfolioCard 
-            title="AWS Cloud Architecture" 
-            category="Certification" 
-            image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=AWS" 
-          />
+      <AnimatePresence mode="wait">
+        <Grid container spacing={3}>
+          <Grid>
+            <PortfolioCard
+              title="AWS Cloud Architecture"
+              category="Certification"
+              image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=AWS"
+            />
+          </Grid>
+          <Grid>
+            <PortfolioCard
+              title="Kubernetes Cluster Setup"
+              category="Project"
+              image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=K8s"
+            />
+          </Grid>
+          <Grid >
+            <PortfolioCard
+              title="High Availability Network"
+              category="Project"
+              image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=Network"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <PortfolioCard 
-            title="Kubernetes Cluster Setup" 
-            category="Project" 
-            image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=K8s" 
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <PortfolioCard 
-            title="High Availability Network" 
-            category="Project" 
-            image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=Network" 
-          />
-        </Grid>
-      </Grid>
+      </AnimatePresence>
     </Box>
   );
 };

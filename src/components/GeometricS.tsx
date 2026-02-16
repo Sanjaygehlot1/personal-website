@@ -13,6 +13,7 @@ const GeometricSBackground: React.FC = () => {
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden',
+        bgcolor: '#1d1e24', 
       }}
     >
       <Box
@@ -22,7 +23,7 @@ const GeometricSBackground: React.FC = () => {
           left: -50,
           width: 600,
           height: 800,
-          opacity: 0.08,
+          opacity: 1, 
         }}
       >
         
@@ -171,7 +172,7 @@ const GeometricSBackground: React.FC = () => {
           borderTop: '40px solid transparent',
           borderRight: '40px solid #3b82f6',
           borderBottom: '40px solid transparent',
-          opacity: 0.05,
+          opacity: 1,
         }}
       />
 
@@ -185,7 +186,7 @@ const GeometricSBackground: React.FC = () => {
           borderBottom: '50px solid transparent',
           borderLeft: '50px solid #f97316',
           borderTop: '50px solid transparent',
-          opacity: 0.06,
+          opacity: 1,
         }}
       />
     </Box>

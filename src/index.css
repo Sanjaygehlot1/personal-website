@@ -22,7 +22,7 @@
   }
 }
 
-@layer utilities {
+/* @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -62,11 +62,11 @@ html {
 }
 
 /* Animation for status indicator */
-@keyframes pulse {
+/* @keyframes pulse {
   0%, 100% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
   }
-}
+} */ 

@@ -13,6 +13,8 @@ import {
   Flag,
 } from '@mui/icons-material';
 
+import { personalInfo } from '../data/portfolioData';
+
 interface ProfileHeaderProps {
   personalInfo?: {
     name: string;
@@ -28,7 +30,7 @@ interface ProfileHeaderProps {
   };
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
   const name = personalInfo?.name || 'Aditya Pratama';
   const title = personalInfo?.title || 'DevOps | SRE | Cloud Engineer';
   const avatar = personalInfo?.avatar;
@@ -50,7 +52,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', mt: '45px', justifyContent: 'center', alignItems: 'center', width: '100%', px: 2 }}>
+    <Box sx={{ display: 'flex', mt: '45px', justifyContent: 'center', width: '100%', px: 2 }}>
       <Card
         sx={{
           width: '100%',
@@ -69,8 +71,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
           sx={{
             position: 'relative',
             zIndex: 1,
-            p: { xs: 3, md: 5 },
-            pt: { xs: 9, md: 5 }, 
+            px: { xs: 3, md: 3 },
+            py: { xs: 9, md: 3.5 }, 
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             alignItems: { xs: 'center', md: 'center' },
@@ -78,7 +80,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
           }}
         >
           
-          <Box
+          <Box sx={{
+            border: '10px solid #23262b',
+            borderRadius: '30px'
+          }}>
+            <Box
             sx={{
               position: 'absolute',
               top: -45, 
@@ -94,9 +100,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
                 content: '""',
                 position: 'absolute',
                 inset: 0,
-                backgroundColor: '#23262b',
+                backgroundColor: '#1d1e24',
                 borderRadius: '40px', 
-                boxShadow: '0 -10px 20px rgba(0,0,0,0.2)',
+                boxShadow: '0 -10px 50px rgba(0,0,0,0.2)',
                 zIndex: -1,
               }
             }}
@@ -113,17 +119,17 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
               imgProps={{ onError: (e) => (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120' }}
             />
           </Box>
+          </Box>
 
-          <Box sx={{ flex: 1, ml: { xs: 0, md: '170px' }, textAlign: { xs: 'center', md: 'left' }, width: '100%', mt: {xs:"30px", sm: "30px",md: 0},  p: { xs: "0px", sm: "0px", md: 0 } }}>
-            <Typography variant="h4" sx={{ fontSize: { xs: '1rem', md: '1.5rem' }, fontWeight: 700, color: 'white', letterSpacing: 0.5 }}>
-              {name.split(' ')[0]} <Box component="span" sx={{ fontWeight: 400, color: '#9ca3af' }}>{name.split(' ').slice(1).join(' ')}</Box>
+          <Box sx={{ flex: 1, ml: { xs: 0, md: '170px' }, textAlign: { xs: 'center', md: 'left' }, width: '100%', mt: {xs:"30px", sm: "30px",md: 0},  p: { xs: "0px", sm: "0px", md: 0 }}}>
+            <Typography variant="h4" sx={{ fontSize: { xs: '1rem', md: '1.5rem' }, fontWeight: 900, color: 'white', letterSpacing: 0.5 }}>
+              {name.split(' ')[0]} <Box component="span" sx={{ fontWeight: 300, color: 'white' }}>{name.split(' ').slice(1).join(' ')}</Box>
             </Typography>
 
             <Typography variant="body1" sx={{ mt: 0.5, mb: 2, color: '#9ca3af', fontSize: '0.9rem' }}>
               {title}
             </Typography>
 
-            {/* Social Icons */}
             <Stack direction="row" spacing={1} justifyContent={{ xs: 'center', md: 'flex-start' }} sx={{ mb: { xs: 0, md: 0 } }}>
               {socialLinks.length > 0 ? socialLinks.map((s, i) => {
                 const Icon = getIcon(s.icon);
@@ -141,7 +147,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
 
           <Grid container spacing={3} sx={{ maxWidth: { md: 450 }, width: '100%' }}>
 
-            <Grid item xs={6} md={6}>
+            <Grid>
               <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>EMAIL</Typography>
               <Stack direction="row" alignItems="center" spacing={1} component="a" href={`mailto:${email}`} sx={{ textDecoration: 'none', color: 'white', '&:hover': { color: '#60a5fa' } }}>
                 <Typography variant="body2" noWrap sx={{ fontSize: '0.85rem', maxWidth: { xs: '140px', md: '100%' } }}>{email}</Typography>
@@ -149,7 +155,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
               </Stack>
             </Grid>
 
-            <Grid item xs={6} md={6}>
+            <Grid >
               <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>CV</Typography>
               <Stack direction="row" alignItems="center" spacing={1} component="a" href={cvUrl} download sx={{ textDecoration: 'none', color: 'white', '&:hover': { color: '#60a5fa' } }}>
                 <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>Download</Typography>
@@ -157,7 +163,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
               </Stack>
             </Grid>
 
-            <Grid item xs={6} md={6}>
+            <Grid>
               <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>LOCATION</Typography>
               <Stack direction="row" alignItems="center" spacing={1} sx={{ color: 'white' }}>
                 <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>{location}</Typography>
@@ -165,7 +171,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personalInfo }) => {
               </Stack>
             </Grid>
 
-            <Grid item xs={6} md={6}>
+            <Grid>
               <Typography variant="caption" sx={{ color: '#6b7280', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 0.5, fontSize: '0.65rem' }}>STATUS</Typography>
               <Box sx={{ fontSize: '0.85rem' }}>🍉</Box>
             </Grid>

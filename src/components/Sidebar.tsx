@@ -30,20 +30,28 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setSection }) => {
         borderRadius: 4,
         border: '1px solid rgba(255,255,255,0.08)',
         p: 2,
-        overflow: 'hidden',
+        overflow: 'visible', 
+        position: 'sticky',
+        top: '100px',
+        zIndex: 100,
+        maxHeight: '100vh'
       }}
     >
-      <Stack spacing={2} alignItems="center">
+      <Stack spacing={3} alignItems="center">
         {menuItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
             <Box
               key={item.id}
-              onClick={() => setSection(item.id)}
+              onClick={() => {
+                setSection(item.id)
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth"
+                });
+              }}
               sx={{
-                width: 100,
-                height: 100,
-                borderRadius: 3,
+                borderRadius: 4,
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
@@ -52,20 +60,28 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setSection }) => {
                 bgcolor: isActive ? 'primary.main' : 'transparent',
                 color: isActive ? 'white' : 'text.secondary',
                 transition: 'all 0.3s ease',
+                width: 90,
+                height: 90,
                 '&:hover': {
                   bgcolor: isActive ? 'primary.main' : 'rgba(255,255,255,0.05)',
-                  transform: 'translateY(-2px)',
+                  transform: 'translateY(-3px)',
+                  color: 'white',
                 },
-                boxShadow: isActive ? '0 8px 16px rgba(59, 130, 246, 0.3)' : 'none',
+                boxShadow: isActive ? '0 10px 20px rgba(59, 130, 246, 0.4)' : 'none',
+
+                '& .MuiSvgIcon-root': {
+                  fontSize: '2.5rem', 
+                  mb: 1, 
+                }
               }}
             >
-              <Box sx={{ mb: 0.5 }}>{item.icon}</Box>
-              <Typography 
-                variant="caption" 
-                sx={{ 
-                  fontWeight: 600, 
-                  fontSize: '0.7rem',
-                  letterSpacing: '0.5px' 
+              <Box>{item.icon}</Box>
+              <Typography
+                variant="caption"
+                sx={{
+                  fontWeight: 600,
+                  fontSize: '0.85rem', 
+                  letterSpacing: '1px'
                 }}
               >
                 {item.label.toUpperCase()}
@@ -74,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setSection }) => {
           );
         })}
       </Stack>
-    </Paper>
+    </Paper >
   );
 };
 

@@ -8,10 +8,8 @@ import Resume from './components/sections/Resume';
 import Portfolio from './components/sections/Portfolio';
 import Contact from './components/sections/Contact';
 import GeometricSBackground from './components/GeometricS';
-
-
-const About = () => <Box sx={{ p: 4, color: 'text.secondary' }}>About Content</Box>;
-const Blog = () => <Box sx={{ p: 4, color: 'text.secondary' }}>Blog Content</Box>;
+import About from './components/sections/About';
+import Blog from './components/sections/Blogs';
 
 function App() {
   const [activeSection, setActiveSection] = useState('resume');
@@ -45,6 +43,7 @@ function App() {
           <Stack
             direction={{ xs: 'column', md: 'row' }}
             spacing={4}
+            sx={{width:{xs : '100%', md: 'auto'}}}
             alignItems="flex-start"
           >
 
@@ -52,8 +51,10 @@ function App() {
               sx={{
                 width: { xs: '100%', md: 'auto' },
                 minWidth: { md: '120px' },
+                maxHeight: '100vh',
                 position: { md: 'sticky' },
-                top: { md: 100 },
+                top: { md: 15 },
+                mt: 10,
                 zIndex: 10
               }}
             >
@@ -61,7 +62,6 @@ function App() {
             </Box>
 
             <Box sx={{ flex: 1, width: '100%' }}>
-              <Fade in key={activeSection} timeout={400}>
                 <Box
                   sx={{
                     bgcolor: '#23262b',
@@ -75,7 +75,6 @@ function App() {
                 >
                   {renderContent()}
                 </Box>
-              </Fade>
             </Box>
 
           </Stack>
