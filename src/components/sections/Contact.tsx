@@ -1,48 +1,54 @@
-import React from 'react';
-import { Box, Typography, TextField, Button, Grid, Stack, Alert } from '@mui/material';
-import { Send } from '@mui/icons-material';
+import React from "react";
+import { Send } from "@mui/icons-material";
 
 const Contact = () => {
   return (
-    <Box sx={{ p: 4 }}>
-      <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
-        <Typography variant="h4">Contact</Typography>
-        <Box sx={{ flex: 1, height: 2, bgcolor: '#3b82f6', borderRadius: 1, maxWidth: 100 }} />
-      </Stack>
+    <div className="p-8 md:p-12 text-white">
+      <h2 className="text-[38px] font-bold mb-2">Contact</h2>
 
-      <Box sx={{ height: 200, width: '100%', bgcolor: '#2d2d2d', borderRadius: 4, mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Typography color="text.secondary">Map / Location Visualization</Typography>
-      </Box>
+      <div className="w-[70px] h-[4px] rounded bg-gradient-to-r from-orange-400 to-blue-500 mb-8" />
 
-      <Typography variant="h6" sx={{ mb: 3 }}>
-        Open for opportunities: <span style={{ color: '#3b82f6' }}>Yes</span>
-      </Typography>
+      <p className="text-gray-400 mb-8">
+        Open for opportunities:{" "}
+        <span className="text-white font-semibold">Yes</span>
+      </p>
 
-      <Box component="form" sx={{ bgcolor: '#262626', p: 4, borderRadius: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <TextField fullWidth label="Full name" variant="outlined" 
-              sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#1e1e1e' } }} 
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField fullWidth label="Email address" variant="outlined" 
-              sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#1e1e1e' } }} 
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField fullWidth multiline rows={4} label="Your message" variant="outlined" 
-               sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#1e1e1e' } }} 
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" size="large" startIcon={<Send />} sx={{ px: 4, py: 1.5, borderRadius: 2 }}>
-              Send Message
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
+      <h3 className="text-[26px] font-bold mb-6">Contact Form</h3>
+
+      <form className="space-y-6">
+        <div className="flex flex-col md:flex-row gap-6">
+          <input
+            type="text"
+            placeholder="Full name"
+            className="w-full md:w-1/2 rounded-2xl bg-white/5 px-6 py-4 outline-none focus:bg-white/10 transition"
+          />
+
+          <input
+            type="email"
+            placeholder="Email address"
+            className="w-full md:w-1/2 rounded-2xl bg-white/5 px-6 py-4 outline-none focus:bg-white/10 transition"
+          />
+        </div>
+
+        <textarea
+          placeholder="Your message"
+          rows={6}
+          className="w-full rounded-2xl bg-white/5 px-6 py-4 outline-none resize-none focus:bg-white/10 transition"
+        />
+
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold 
+            bg-gradient-to-br from-blue-400 to-blue-600
+            shadow-md hover:shadow-lg hover:-translate-y-[2px] transition"
+          >
+            <Send style={{ fontSize: 18 }} />
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

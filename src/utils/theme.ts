@@ -14,13 +14,6 @@ export const theme = createTheme({
       secondary: '#a1a1aa', 
     },
   },
-  typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-    h3: { fontWeight: 700 },
-    h4: { fontWeight: 700, fontSize: '1.75rem' },
-    h6: { fontWeight: 600 },
-    body1: { lineHeight: 1.7 },
-  },
   components: {
     MuiButton: {
       styleOverrides: {

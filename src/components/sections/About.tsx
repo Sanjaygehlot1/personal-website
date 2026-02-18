@@ -1,91 +1,99 @@
 import React from 'react';
 import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  Chip,
-  Stack,
-  Fade,
-  Zoom,
-} from '@mui/material';
-import {
-  Code as CodeIcon,
-  Storage as StorageIcon,
-  Build as BuildIcon,
-  Cloud as CloudIcon,
-  Brush as BrushIcon,
-  Rocket as RocketIcon,
-  Architecture as ArchitectureIcon,
-} from '@mui/icons-material';
+  Cloud,
+  GitBranch,
+  Boxes,
+  LineChart,
+  Terminal,
+  Shield,
+} from 'lucide-react';
 import SectionTitle from '../SectionTitle';
-import type { PersonalInfo } from '../../types';
-import { skillsData } from '../../data/portfolioData';
-import {About as aboutInfo} from '../../data/about'
-
+import { About as aboutInfo } from '../../data/about';
 
 const About: React.FC = () => {
+  const services = [
+    {
+      icon: Cloud,
+      title: 'Cloud Architecture',
+      description: 'Design scalable solutions on AWS, GCP, and Azure',
+      color: 'text-cyan-500',
+    },
+    {
+      icon: GitBranch,
+      title: 'CI/CD Pipeline',
+      description: 'Automated deployments with Jenkins and GitOps',
+      color: 'text-green-500',
+    },
+    {
+      icon: Boxes,
+      title: 'Container Orchestration',
+      description: 'Kubernetes cluster management and optimization',
+      gradient: 'text-blue-500',
+    },
+    {
+      icon: LineChart,
+      title: 'Monitoring & Observability',
+      description: 'Prometheus, Grafana, and ELK Stack setup',
+      color: 'text-orange-500',
+    },
+    {
+      icon: Terminal,
+      title: 'Infrastructure as Code',
+      description: 'Terraform and Ansible automation',
+      color: 'text-purple-500',
+    },
+    {
+      icon: Shield,
+      title: 'Security & Compliance',
+      description: 'DevSecOps and security best practices',
+      color: 'text-red-500',
+    },
+  ];
+
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        py: 8,
-        px: { xs: 2, sm: 4 },
-      }}
-    >
-      <Container maxWidth="lg">
-        <SectionTitle title="ABOUT ME" />
+    <div className="min-h-screen py-12 px-4 sm:px-8">
+      <div className="max-w-6xl mx-auto">
+        <SectionTitle title="About Me" />
 
-        <Fade in timeout={800}>
-          <Box sx={{ mb: 8 }}>
-            <Typography
-              variant="body1"
-              sx={{
-                color: '#9ca3af',
-                lineHeight: 1.9,
-                fontSize: '1rem',
-                fontWeight: 300,
-                mb: 3,
-                maxWidth: '900px',
-                mx: 'auto',
-                whiteSpace: 'pre-wrap'
-              }}
-            >
-              {aboutInfo}
-            </Typography>
-          </Box>
-        </Fade>
+        <div className="mb-12">
+          <p className="text-white leading-relaxed text-base font-normal max-w-4xl mx-auto whitespace-pre-wrap">
+            {aboutInfo}
+          </p>
+        </div>
 
+        <div className="bg-[#1a1d23] border border-[#2a2e38] rounded-3xl p-8">
+          <h2 className="text-white font-bold text-2xl mb-8 text-center">
+            What I Do
+          </h2>
 
-        <Fade in timeout={1000}>
-          <Card
-            sx={{
-              bgcolor: '#1a1d23',
-              border: '1px solid #2a2e38',
-              borderRadius: 4,
-              p: 5,
-            }}
-          >
-            <Typography
-              variant="h4"
-              sx={{
-                color: 'white',
-                fontWeight: 700,
-                mb: 6,
-                textAlign: 'center',
-                fontSize: '1.75rem',
-              }}
-            >
-              What I Do
-            </Typography>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <div
+                  key={index}
+                  className="bg-[#23272f] border border-[#2a2e38] rounded-2xl p-6  transition-all duration-300 group"
+                >
+                  <div
+                    className={`w-12 h-12  flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <Icon className={`w-6 h-6  ${service.color}`} strokeWidth={2} />
+                  </div>
 
-            
-          </Card>
-        </Fade>
-      </Container>
-    </Box>
+                  <h3 className="text-white font-semibold text-lg mb-2">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-[#9ca3af] text-sm">
+                    {service.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

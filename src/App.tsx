@@ -13,7 +13,6 @@ import Blog from './components/sections/Blogs';
 
 function App() {
   const [activeSection, setActiveSection] = useState('resume');
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const renderContent = () => {
     switch (activeSection) {
@@ -27,7 +26,7 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} >
       <GeometricSBackground />
       <Box
         sx={{
