@@ -1,156 +1,118 @@
-import React from 'react';
-import { Box, Typography, Stack, Grid, Chip, Fade } from '@mui/material';
-import { BusinessCenter, School, Code, Terminal, EmojiEvents } from '@mui/icons-material';
+import React, { useState, useEffect } from 'react';
+import { Briefcase, GraduationCap, Code2, Terminal, Trophy, ChevronRight } from 'lucide-react';
 import { resumeData } from '../../data/resumeData';
 import SectionTitle from '../SectionTitle';
-const TimelineItem = ({ title, company, date, desc }: {title: string, company:string, date:string, desc: string[]}) => (
-  <Box sx={{ position: 'relative', pl: 4.5, pb: 4, '&:last-child': { pb: 0 } }}>
-    {/* Continuous Line */}
-    <Box sx={{ 
-      position: 'absolute', 
-      left: 0, 
-      top: 6, 
-      bottom: 0, 
-      width: '1px', 
-      bgcolor: '#333',
-    }} />
-    
-    {/* Glowing Dot */}
-    <Box sx={{ 
-      position: 'absolute', 
-      left: -5.5, 
-      top: 6, 
-      width: 12, 
-      height: 12, 
-      borderRadius: '50%', 
-      bgcolor: 'primary.main',
-      boxShadow: '0 0 0 4px rgba(59, 130, 246, 0.15)',
-      zIndex: 2
-    }} />
 
-    <Typography variant="h6" sx={{ color: 'white', fontSize: '1.1rem', mb: 0.5 }}>
-      {title}
-    </Typography>
-    <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
-      {company} <Box component="span" sx={{ color: 'primary.main', mx: 0.5 }}>•</Box> {date}
-    </Typography>
-    
-    {/* Handle Description: Array for bullets, String for simple text */}
-    <Box sx={{ color: 'text.secondary', lineHeight: 1.6, fontSize: '0.9rem' }}>
-      {Array.isArray(desc) ? (
-        <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-          {desc.map((point, index) => (
-            <li key={index} style={{ marginBottom: '4px' }}>{point}</li>
-          ))}
-        </ul>
-      ) : (
-        desc
-      )}
-    </Box>
-  </Box>
+const TimelineItem = ({
+  title,
+  company,
+  date,
+  desc,
+}: {
+  title: string;
+  company: string;
+  date: string;
+  desc: string[];
+}) => (
+  <div className="relative pl-8 mb-8">
+    <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500 to-blue-500/10" />
+    <div className="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_6px_2px_rgba(59,130,246,0.5)]" />
+
+    <h3 className="text-base font-semibold text-gray-900 dark:text-white leading-tight">{title}</h3>
+    <p className=" text-blue-600 dark:text-blue-400 mt-0.5">
+      {company} • {date}
+    </p>
+
+    {Array.isArray(desc) ? (
+      <ul className="mt-2 space-y-1.5 list-none">
+        {desc.map((point, index) => (
+          <li key={index} className="flex items-start gap-2  text-gray-600 dark:text-gray-300">
+            <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-blue-500 flex-shrink-0" />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p className="mt-2  text-gray-600 dark:text-gray-300">{desc}</p>
+    )}
+  </div>
 );
 
-const SectionHeader = ({ icon, title }: {icon: any, title: string}) => (
-  <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
-    <Box sx={{ 
-      p: 1.5, 
-      bgcolor: '#252525', 
-      borderRadius: 3, 
-      color: 'primary.main',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}>
-     <span className='flex '>{icon}</span>
-    </Box>
-    <Typography variant="h5" fontWeight="bold">{title}</Typography>
-  </Stack>
+const SectionHeader = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
+  <div className="flex text-2xl items-center gap-2 mb-6">
+    <span className="text-blue-500">{icon}</span>
+    <h2 className="font-bold text-gray-800 dark:text-gray-100 uppercase tracking-widest">
+      {title}
+    </h2>
+  </div>
 );
 
-const SkillGroup = ({ title, skills }: {title: string, skills: string[]}) => (
-  <Box sx={{ mb: 3 }}>
-    <Typography variant="subtitle2" sx={{ color: 'primary.main', mb: 1, textTransform: 'uppercase', letterSpacing: 1 }}>
+const SkillGroup = ({ title, skills }: { title: string; skills: string[] }) => (
+  <div className="mb-5">
+    <p className=" font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
       {title}
-    </Typography>
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+    </p>
+    <div className="flex flex-wrap gap-2">
       {skills.map((skill, index) => (
-        <Chip 
-          key={index} 
-          label={skill} 
-          sx={{ 
-            bgcolor: 'rgba(255, 255, 255, 0.05)', 
-            color: 'text.secondary', 
-            borderRadius: 1,
-            '&:hover': { bgcolor: 'rgba(59, 130, 246, 0.15)', color: 'white' }
-          }} 
-        />
+        <span
+          key={index}
+          className="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors cursor-default"
+        >
+          {skill}
+        </span>
       ))}
-    </Box>
-  </Box>
+    </div>
+  </div>
 );
-
 
 const Resume = () => {
   return (
-    <Box sx={{ p: { xs: 3, md: 5 } }}>
-      <Box sx={{ mb: 5 }}>
-       <SectionTitle title='Resume'/>
-        
-      </Box>
-      <Fade in timeout={800}>
-      <Grid container spacing={6}>
-        <Grid>
-          <SectionHeader icon={<BusinessCenter />} title="Experience" />
-          <Box sx={{ mt: 2, mb: 6 }}>
-            {resumeData.experience.map((item) => (
-              <TimelineItem 
-                key={item.id}
-                title={item.title}
-                company={item.company}
-                date={item.date}
-                desc={item.desc}
-              />
-            ))}
-          </Box>
-        </Grid>
+    <div className="max-w-4xl font-normal text-base mx-auto px-4 py-10 space-y-12">
+      <SectionTitle title="Resume" />
+      <section>
+        <SectionHeader icon={<Briefcase className="w-7 h-7" />} title="Experience" />
+        <div className="mt-6">
+          {resumeData.experience.map((item, i) => (
+            <TimelineItem key={i} {...item} />
+          ))}
+        </div>
+      </section>
 
-        <Grid>
-          <SectionHeader icon={<School />} title="Education" />
-          <Box sx={{ mt: 2, mb: 6 }}>
-            {resumeData.education.map((item) => (
-              <TimelineItem 
-                key={item.id}
-                title={item.title}
-                company={item.company}
-                date={item.date}
-                desc={item.desc}
-              />
-            ))}
-          </Box>
-          <SectionHeader icon={<Terminal width={16} height={16}/>} title="Technical Skills" />
-          <Box sx={{ pl: 2, mb: 6 }}>
-             <SkillGroup title="Languages" skills={resumeData.skills.languages} />
-             <SkillGroup title="Cloud & DevOps" skills={resumeData.skills.cloud} />
-             <SkillGroup title="DevSecOps" skills={resumeData.skills.devSecOps} />
-             <SkillGroup title="Web Technologies" skills={resumeData.skills.web} />
-             <SkillGroup title="Tools" skills={resumeData.skills.tools} />
-          </Box>
+      <section>
+        <SectionHeader icon={<GraduationCap className="w-7 h-7" />} title="Education" />
+        <div className="mt-6">
+          {resumeData.education.map((item, i) => (
+            <TimelineItem key={i} {...item} />
+          ))}
+        </div>
+      </section>
 
-          <SectionHeader icon={<EmojiEvents />} title="Achievements" />
-          <Box sx={{ pl: 2 }}>
-            <ul style={{ paddingLeft: '1.2rem', margin: 0, color: '#a1a1aa' }}>
-               {resumeData.achievements.map((ach, index) => (
-                 <li key={index} style={{ marginBottom: '8px' }}>
-                   <Typography variant="body2">{ach}</Typography>
-                 </li>
-               ))}
-            </ul>
-          </Box>
+      <section>
+        <SectionHeader icon={<Code2 className="w-7 h-7" />} title="Technical Skills" />
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+          {resumeData.skills.map((group, i) => (
+            <SkillGroup key={i} skills={group.stack} title={group.name} />
+          ))}
+        </div>
+      </section>
 
-        </Grid>
-      </Grid>
-      </Fade>
-    </Box>
+      <section>
+        <SectionHeader icon={<Trophy className="w-7 h-7" />} title="Achievements" />
+        <ul className="mt-6 space-y-3">
+          {resumeData.achievements.map((ach, index) => (
+            <li
+              key={index}
+              className="flex items-start gap-3  text-gray-700 dark:text-gray-300"
+            >
+              <span className="mt-0.5 w-5 h-5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center flex-shrink-0">
+                <Trophy className="w-3 h-3 text-yellow-500" />
+              </span>
+              <span>{ach}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 };
 

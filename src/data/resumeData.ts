@@ -37,13 +37,13 @@ export const resumeData = {
       ]
     }
   ],
-  skills: {
-    languages: ["Python", "JavaScript", "Java", "Bash", "YAML", "HCL (Terraform)"],
-    cloud: ["AWS (EC2, S3, RDS, Lambda, CloudWatch, IAM)", "Terraform", "Docker", "Kubernetes", "GitHub Actions", "Jenkins"],
-    devSecOps: ["Trivy", "SonarQube", "OWASP ZAP", "HashiCorp Vault", "AWS Security Hub"],
-    web: ["React", "Node.js", "Express", "MongoDB", "NextJs", "PostgreSQL", "REST APIs"],
-    tools: ["Git", "GitHub", "VS Code", "Postman", "Linux", "Nginx", "Apache"]
-  },
+  skills: [
+    { name:"languages", stack: ["Python", "JavaScript", "Java", "Bash", "YAML", "HCL (Terraform)"] },
+    { name: "cloud" ,stack: ["AWS (EC2, S3, RDS, Lambda, CloudWatch, IAM)", "Terraform", "Docker", "Kubernetes", "GitHub Actions", "Jenkins"] },
+    { name: "devSecOps" ,stack: ["Trivy", "SonarQube", "OWASP ZAP", "HashiCorp Vault", "AWS Security Hub"] },
+    { name: "web" ,stack: ["React", "Node.js", "Express", "MongoDB", "NextJs", "PostgreSQL", "REST APIs"] },
+    { name: "tools" ,stack: ["Git", "GitHub", "VS Code", "Postman", "Linux", "Nginx", "Apache"] }
+  ],
   achievements: [
     "Data Structures & Algorithms Enthusiast: Active problem solver on LeetCode, GeeksForGeeks, and InterviewBit",
     "Cloud Certifications: AWS Certified Associate Cloud Architect (in progress)"

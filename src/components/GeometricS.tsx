@@ -1,196 +1,54 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React from "react";
 
-const GeometricSBackground: React.FC = () => {
+export default function DecorativeShapes() {
   return (
-    <Box
-      sx={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-        overflow: 'hidden',
-        bgcolor: '#1d1e24', 
-      }}
-    >
-      <Box
-        sx={{
-          position: 'absolute',
-          top: -50,
-          left: -50,
-          width: 600,
-          height: 800,
-          opacity: 1, 
-        }}
+    <div className="pointer-events-none fixed min-h-screen inset-0 bg-[#1d1e24] overflow-hidden z-0">
+
+      <svg
+        viewBox="0 0 500 500"
+        className="absolute -top-10 -left-10 w-[380px] md:w-[520px] opacity-100"
       >
-        
-        <Box sx={{ position: 'absolute', top: 80, left: 150, display: 'flex' }}>
-          <Box sx={{ width: 80, height: 60, bgcolor: '#06b6d4' }} />
-          <Box sx={{ width: 80, height: 60, bgcolor: '#3b82f6' }} />
-          <Box sx={{ width: 80, height: 60, bgcolor: '#f97316' }} />
-          <Box sx={{ width: 80, height: 60, bgcolor: '#fbbf24' }} />
-        </Box>
+        <defs>
+          <linearGradient id="tl1" x1="0" x2="1">
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="100%" stopColor="#3b82f6" />
+          </linearGradient>
+        </defs>
 
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 80,
-            right: -80,
-            width: 0,
-            height: 0,
-            borderTop: '120px solid transparent',
-            borderRight: '120px solid #06b6d4',
-            borderBottom: '120px solid transparent',
-          }}
+        <polygon
+          points="80,40 240,160 120,300 -40,180"
+          fill="url(#tl1)"
+          opacity="0.35"
         />
 
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 60,
-            left: 50,
-            width: 0,
-            height: 0,
-            borderTop: '100px solid transparent',
-            borderLeft: '100px solid #f97316',
-            borderBottom: '100px solid transparent',
-          }}
+        <rect x="150" y="90" width="120" height="70" rx="14" fill="#06b6d4" />
+        <rect x="280" y="130" width="120" height="70" rx="14" fill="#3b82f6" />
+
+        <circle cx="260" cy="240" r="16" fill="#10b981" />
+      </svg>
+
+      <svg
+        viewBox="0 0 500 500"
+        className="absolute -bottom-14 -right-14 w-[380px] md:w-[520px] opacity-100"
+      >
+        <defs>
+          <linearGradient id="br1" x1="0" x2="1">
+            <stop offset="0%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+
+        <path
+          d="M520 180 C420 260 260 320 80 320 L520 520 Z"
+          fill="url(#br1)"
+          opacity="0.35"
         />
 
-        <Box sx={{ position: 'absolute', top: 200, left: 250, display: 'flex' }}>
-          <Box sx={{ width: 70, height: 50, bgcolor: '#8b5cf6' }} />
-          <Box sx={{ width: 70, height: 50, bgcolor: '#06b6d4' }} />
-        </Box>
+        <rect x="120" y="240" width="120" height="70" rx="14" fill="#fbbf24" />
+        <rect x="260" y="280" width="120" height="70" rx="14" fill="#10b981" />
 
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 250,
-            left: 200,
-            width: 0,
-            height: 0,
-            borderBottom: '80px solid #3b82f6',
-            borderLeft: '80px solid transparent',
-            borderRight: '80px solid transparent',
-          }}
-        />
-
-        <Box sx={{ position: 'absolute', top: 340, left: 180, display: 'flex' }}>
-          <Box sx={{ width: 60, height: 50, bgcolor: '#10b981' }} />
-          <Box sx={{ width: 60, height: 50, bgcolor: '#f97316' }} />
-          <Box sx={{ width: 60, height: 50, bgcolor: '#06b6d4' }} />
-        </Box>
-
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 340,
-            left: 80,
-            width: 0,
-            height: 0,
-            borderTop: '100px solid transparent',
-            borderLeft: '100px solid #8b5cf6',
-            borderBottom: '100px solid transparent',
-          }}
-        />
-
-        <Box sx={{ position: 'absolute', top: 480, left: 150, display: 'flex' }}>
-          <Box sx={{ width: 75, height: 55, bgcolor: '#fbbf24' }} />
-          <Box sx={{ width: 75, height: 55, bgcolor: '#3b82f6' }} />
-          <Box sx={{ width: 75, height: 55, bgcolor: '#10b981' }} />
-        </Box>
-
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 560,
-            left: 200,
-            width: 0,
-            height: 0,
-            borderTop: '90px solid transparent',
-            borderRight: '90px solid #f97316',
-            borderBottom: '90px solid transparent',
-          }}
-        />
-
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 600,
-            left: 50,
-            width: 0,
-            height: 0,
-            borderBottom: '120px solid transparent',
-            borderLeft: '120px solid #06b6d4',
-            borderTop: '120px solid transparent',
-          }}
-        />
-
-        <Box sx={{ position: 'absolute', top: 650, left: 170, display: 'flex' }}>
-          <Box sx={{ width: 80, height: 60, bgcolor: '#06b6d4' }} />
-          <Box sx={{ width: 80, height: 60, bgcolor: '#8b5cf6' }} />
-          <Box sx={{ width: 80, height: 60, bgcolor: '#f97316' }} />
-        </Box>
-
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 420,
-            right: 80,
-            width: 0,
-            height: 0,
-            borderTop: '60px solid transparent',
-            borderRight: '60px solid #10b981',
-            borderBottom: '60px solid transparent',
-          }}
-        />
-
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 180,
-            left: 100,
-            width: 0,
-            height: 0,
-            borderBottom: '70px solid #fbbf24',
-            borderLeft: '70px solid transparent',
-            borderRight: '70px solid transparent',
-          }}
-        />
-      </Box>
-
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 150,
-          right: 200,
-          width: 0,
-          height: 0,
-          borderTop: '40px solid transparent',
-          borderRight: '40px solid #3b82f6',
-          borderBottom: '40px solid transparent',
-          opacity: 1,
-        }}
-      />
-
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: 200,
-          right: 150,
-          width: 0,
-          height: 0,
-          borderBottom: '50px solid transparent',
-          borderLeft: '50px solid #f97316',
-          borderTop: '50px solid transparent',
-          opacity: 1,
-        }}
-      />
-    </Box>
+        <polygon points="360,120 440,180 360,240" fill="#f97316" />
+      </svg>
+    </div>
   );
-};
-
-export default GeometricSBackground;
+}

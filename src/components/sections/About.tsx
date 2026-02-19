@@ -61,8 +61,7 @@ const About: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-[#1a1d23] border border-[#2a2e38] rounded-3xl p-8">
-          <h2 className="text-white font-bold text-2xl mb-8 text-center">
+          <h2 className="text-white font-bold text-2xl mb-8">
             What I Do
           </h2>
 
@@ -93,7 +92,6 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

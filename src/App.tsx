@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import { Box, Container, Fade, Stack, useMediaQuery } from '@mui/material';
-import { theme } from './utils/theme'
+import { User, FileText, Codesandbox, BookOpen, Mail } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import ProfileHeader from './components/Header';
 import Resume from './components/sections/Resume';
@@ -10,76 +8,71 @@ import Contact from './components/sections/Contact';
 import GeometricSBackground from './components/GeometricS';
 import About from './components/sections/About';
 import Blog from './components/sections/Blogs';
+import { MobileSidebar } from './components/MobileSideBar';
+
+
+const menuItems = [
+  { id: 'about',     icon: <User size={20} />,     label: 'About' },
+  { id: 'resume',    icon: <FileText size={20} />,  label: 'Resume' },
+  { id: 'portfolio', icon: <Codesandbox size={20} />, label: 'Portfolio' },
+  { id: 'blog',      icon: <BookOpen size={20} />,  label: 'Blog' },
+  { id: 'contact',   icon: <Mail size={20} />,      label: 'Contact' },
+];
+
 
 function App() {
   const [activeSection, setActiveSection] = useState('resume');
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'about': return <About />;
-      case 'resume': return <Resume />;
+      case 'about':     return <About />;
+      case 'resume':    return <Resume />;
       case 'portfolio': return <Portfolio />;
-      case 'blog': return <Blog />;
-      case 'contact': return <Contact />;
-      default: return <Resume />;
+      case 'blog':      return <Blog />;
+      case 'contact':   return <Contact />;
+      default:          return <Resume />;
     }
   };
 
   return (
-    <ThemeProvider theme={theme} >
+    <div className="min-h-screen bg-[#1d1e24]">
       <GeometricSBackground />
-      <Box
-        sx={{
-          minHeight: '100vh',
-          bgcolor: '#23262b', 
-        }}
-      >
-        <Container maxWidth="lg" sx={{ py: { xs: 2, md: 6 }, px: { xs: 2, md: 4 } }}>
-          <Box sx={{ flex: 1, height: "40%", width: '100%', mb: 4, pb: 0 }}>
-            <ProfileHeader />
-          </Box>
 
-          <Stack
-            direction={{ xs: 'column', md: 'row' }}
-            spacing={4}
-            sx={{width:{xs : '100%', md: 'auto'}}}
-            alignItems="flex-start"
-          >
+      
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50">
+        <MobileSidebar activeSection={activeSection} setSection={setActiveSection} menuItems={menuItems}/>
+      </div>
 
-            <Box
-              sx={{
-                width: { xs: '100%', md: 'auto' },
-                minWidth: { md: '120px' },
-                maxHeight: '100vh',
-                position: { md: 'sticky' },
-                top: { md: 15 },
-                mt: 10,
-                zIndex: 10
-              }}
+      
+      <div className="md:hidden h-[68px]" />
+
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 md:py-12">
+
+        <div className="w-full mb-7">
+          <ProfileHeader />
+        </div>
+
+        <div className="flex  flex-col md:flex-row md:items-start gap-6">
+
+          <div className="hidden md:block min-w-[150px] sticky top-4 z-10 ">
+            <Sidebar activeSection={activeSection} setSection={setActiveSection} />
+          </div>
+
+          <div className="flex-1 w-full">
+            <div
+              className="
+                bg-[#23262b] rounded-2xl border border-white/[0.08]
+                min-h-[500px] relative overflow-hidden
+                shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]
+              "
             >
-              <Sidebar activeSection={activeSection} setSection={setActiveSection} />
-            </Box>
+              {renderContent()}
+            </div>
+          </div>
 
-            <Box sx={{ flex: 1, width: '100%' }}>
-                <Box
-                  sx={{
-                    bgcolor: '#23262b',
-                    borderRadius: 4,
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    minHeight: 500,
-                    position: 'relative',
-                    overflow: 'hidden',
-                    boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)'
-                  }}
-                >
-                  {renderContent()}
-                </Box>
-            </Box>
-
-          </Stack>
-        </Container>
-      </Box>
-    </ThemeProvider>
+        </div>
+      </div>
+    </div>
   );
 }
 
