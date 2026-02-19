@@ -1,104 +1,251 @@
 import React, { useState } from 'react';
-import { Box, Typography, Tabs, Tab, Grid, Card, CardContent } from '@mui/material';
-import { AnimatePresence, motion } from 'framer-motion';
-const PortfolioCard = ({ title, category, image }: any) => (
-  <Card
-    sx={{
-      height: '100%',
-      bgcolor: 'transparent',
-      boxShadow: 'none',
-      cursor: 'pointer',
-      '&:hover .image-box': { transform: 'scale(1.02)' },
-      '&:hover .title': { color: 'primary.main' }
-    }}
-  >
-    <Box
-      className="image-box"
-      sx={{
-        height: 180,
-        bgcolor: '#2d2d2d',
-        borderRadius: 3,
-        overflow: 'hidden',
-        mb: 2,
-        transition: 'transform 0.3s ease',
-        position: 'relative'
-      }}
-    >
-      <Box
-        component="img"
-        src={image}
-        alt={title}
-        sx={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
-      />
-    </Box>
-    <Box>
-      <Typography variant="h6" className="title" sx={{ fontSize: '1rem', mb: 0.5, transition: 'color 0.2s' }}>
-        {title}
-      </Typography>
-      <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-        {category}
-      </Typography>
-    </Box>
-  </Card>
-);
+import { motion, AnimatePresence } from 'framer-motion';
+import { Award, FolderGit2, LayoutGrid, ExternalLink } from 'lucide-react';
+import SectionTitle from '../SectionTitle';
+import { Select, MenuItem } from '@mui/material';
+type Project = {
+  id: string;
+  title: string;
+  category: 'Certification' | 'Project';
+  image: string;
+  techStack: string[];
+  link?: string;
+};
 
-const Portfolio = () => {
-  const [tab, setTab] = useState(0);
+// const projects: Project[] = [
+//   {
+//     id: '1',
+//     title: 'Birthday Countdown',
+//     category: 'Project',
+//     image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800&auto=format&fit=crop&q=60',
+//     techStack: ['HTML', 'CSS', 'Javascript', 'VueJs'],
+//     link: '#',
+//   },
+//   {
+//     id: '2',
+//     title: 'NPM Card (npx adityacprtm)',
+//     category: 'Project',
+//     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=60',
+//     techStack: ['Node.js', 'NPM', 'JavaScript'],
+//     link: '#',
+//   },
+//   {
+//     id: '3',
+//     title: 'Transletin',
+//     category: 'Project',
+//     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60',
+//     techStack: ['React', 'Tailwind CSS', 'TypeScript'],
+//     link: '#',
+//   },
+//   {
+//     id: '4',
+//     title: 'AWS Cloud Architecture',
+//     category: 'Certification',
+//     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=60',
+//     techStack: ['AWS', 'Cloud', 'IAM', 'EC2'],
+//     link: '#',
+//   },
+//   {
+//     id: '5',
+//     title: 'Kubernetes Cluster Setup',
+//     category: 'Project',
+//     image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=60',
+//     techStack: ['Kubernetes', 'Docker', 'Helm', 'YAML'],
+//     link: '#',
+//   },
+//   {
+//     id: '6',
+//     title: 'Azure Solutions Architect',
+//     category: 'Certification',
+//     image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&auto=format&fit=crop&q=60',
+//     techStack: ['Azure', 'ARM Templates', 'Bicep'],
+//     link: '#',
+//   },
+// ];
+
+const tabs = [
+  { label: 'All', icon: <LayoutGrid size={14} /> },
+  { label: 'Certifications', icon: <Award size={14} /> },
+  { label: 'Projects', icon: <FolderGit2 size={14} /> },
+];
+
+const PortfolioCard = ({ title, category, image, techStack, link }: Project) => {
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <Box sx={{ p: { xs: 3, md: 5 } }}>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 1.5 }}>Portfolio</Typography>
-        <Box sx={{ width: 50, height: 5, bgcolor: 'primary.main', borderRadius: 2 }} />
-      </Box>
-
-      <Tabs
-        value={tab}
-        onChange={(e, v) => setTab(v)}
-        sx={{
-          mb: 4,
-          '& .MuiTab-root': {
-            color: 'text.secondary',
-            textTransform: 'none',
-            fontSize: '1rem',
-            fontWeight: 500,
-            mr: 2
-          },
-          '& .Mui-selected': { color: 'primary.main' },
-          '& .MuiTabs-indicator': { bgcolor: 'primary.main' }
-        }}
+    
+      <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="flex flex-col"
+    >
+      <div className='border border-white/10 border-1 rounded-2xl p-2'>
+      <div
+        className="relative rounded-2xl overflow-hidden cursor-pointer w-full h-[200px]"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        <Tab label="All" />
-        <Tab label="Certifications" />
-        <Tab label="Projects" />
-      </Tabs>
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover transition-all duration-500"
+          style={{
+            transform: hovered ? 'scale(1.05)' : 'scale(1)',
+            opacity: hovered ? 0.12 : 0.72,
+          }}
+        />
 
-      <AnimatePresence mode="wait">
-        <Grid container spacing={3}>
-          <Grid>
-            <PortfolioCard
-              title="AWS Cloud Architecture"
-              category="Certification"
-              image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=AWS"
-            />
-          </Grid>
-          <Grid>
-            <PortfolioCard
-              title="Kubernetes Cluster Setup"
-              category="Project"
-              image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=K8s"
-            />
-          </Grid>
-          <Grid >
-            <PortfolioCard
-              title="High Availability Network"
-              category="Project"
-              image="https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=Network"
-            />
-          </Grid>
-        </Grid>
-      </AnimatePresence>
-    </Box>
+        <div className="absolute top-4 left-4 z-10">
+          <span
+            className={`text-sm font-semibold px-4 py-1.5 rounded-full shadow-lg ${
+              category === 'Project'
+                ? 'bg-orange-500 text-white'
+                : 'bg-blue-500 text-white'
+            }`}
+          >
+            {category}
+          </span>
+        </div>
+
+        <AnimatePresence>
+          {hovered && (
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center pointer-events-none"
+            >
+              <p className="text-white/50 text-[11px] font-bold tracking-[0.25em] uppercase mb-3">
+                Tech Stack
+              </p>
+              <p className="text-white text-lg font-bold leading-relaxed">
+                {techStack.join(' – ')}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      <div className="mt-4 px-1">
+        <h3 className="text-white text-xl font-extrabold mb-3 leading-snug">{title}</h3>
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 active:scale-95 transition-all duration-200 text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-md"
+          >
+            Website
+            <ExternalLink size={13} />
+          </a>
+        )}
+      </div>
+      </div>
+    </motion.div>
+   
+  );
+};
+
+const Portfolio = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const filtered = projects.filter((p) => {
+    if (activeTab === 1) return p.category === 'Certification';
+    if (activeTab === 2) return p.category === 'Project';
+    return true;
+  });
+
+  return (
+    <div className="min-h-screen  text-white px-2 py-12 sm:px-8 md:px-5 lg:px-7">
+      <SectionTitle title='Portfolio'/>
+
+      <div className="mb-10">
+         <div className="sm:hidden">
+          <Select
+            value={activeTab}
+            onChange={(e) => setActiveTab(Number(e.target.value))}
+            size="small"
+            fullWidth
+            sx={{
+              color: 'white',
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              borderRadius: '12px',
+              backgroundColor: '#1e2028',
+              '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' },
+              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.25)' },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#2563eb' },
+              '.MuiSvgIcon-root': { color: 'rgba(255,255,255,0.4)' },
+            }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: '#1e2028',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: '12px',
+                  mt: 0.5,
+                  '& .MuiMenuItem-root': {
+                    color: 'rgba(255,255,255,0.6)',
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    gap: 1,
+                    '&:hover': { bgcolor: 'rgba(255,255,255,0.06)', color: 'white' },
+                    '&.Mui-selected': { bgcolor: 'rgba(37,99,235,0.2)', color: '#60a5fa' },
+                    '&.Mui-selected:hover': { bgcolor: 'rgba(37,99,235,0.3)' },
+                  },
+                },
+              },
+            }}
+          >
+            {tabs.map((tab, i) => (
+              <MenuItem key={tab.label} value={i} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <div className='flex gap-2 items-center justify-center'>{tab.icon}
+                {tab.label}</div>
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+
+        <div className="hidden sm:flex gap-2 flex-wrap">
+          {tabs.map((tab, i) => (
+            <button
+              key={tab.label}
+              onClick={() => setActiveTab(i)}
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                activeTab === i
+                  ? 'bg-blue-600 border-blue-600 text-white'
+                  : 'bg-transparent border-white/10 text-white/50 hover:text-white/80 hover:border-white/20'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <motion.div
+        layout
+        className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-full"
+      >
+        <AnimatePresence mode="popLayout">
+          {filtered.map((project) => (
+            <PortfolioCard key={project.id} {...project} />
+          ))}
+        </AnimatePresence>
+      </motion.div>
+
+      {filtered.length === 0 && (
+        <div className="text-center py-24 text-white/30 text-sm tracking-wide">
+          No items found.
+        </div>
+      )}
+    </div>
   );
 };
 
