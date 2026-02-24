@@ -6,11 +6,12 @@ export const resumeData = {
       company: "Healync Technologies Private Limited",
       date: "January 2026 – Present",
       desc: [
-        "Architected and deployed scalable cloud infrastructure on AWS using Terraform IaC, reducing deployment time by 40%.",
-        "Implemented CI/CD pipelines with GitHub Actions, automating build, test, and deployment processes.",
-        "Established DevSecOps practices by integrating security scanning tools into deployment pipelines.",
-        "Optimized AWS resource utilization and cost management strategies, achieving 25% reduction in cloud spending.",
-        "Collaborated with development teams to deploy applications using AWS EBS and CloudFront."
+        "Engineered end-to-end CI/CD pipelines using GitHub Actions, orchestrating automated build, test, blue-green deployments, health checks, and rollback strategies across AWS environments.",
+        "Deployed and managed backend services on AWS Elastic Beanstalk, integrating S3 versioning, EBS storage, RDS snapshot automation, and CloudFront distribution for scalable and resilient releases.",
+        "Designed blue-green deployment architecture leveraging SSM Parameter Store for traffic switching and version tracking, enabling zero-downtime releases with automated rollback on health-check failures.",
+        "Built production-grade frontend delivery pipelines, deploying Angular builds to S3 static hosting with CloudFront origin switching, cache invalidation, and environment-based release workflows.",
+        "Integrated DevSecOps and observability practices by implementing automated health checks, deployment summaries, and real-time Slack notifications via webhooks and APIs for deployment transparency",
+        "Optimized release reliability and operational efficiency through automated versioning, metadata tracking, and environment-aware workflows, reducing manual deployment overhead and improving rollback safety"
       ]
     },
     {
@@ -20,8 +21,10 @@ export const resumeData = {
       date: "January 2025 – March 2025",
       desc: [
         "Participated in technical workshops on emerging technologies including cloud computing and DevOps practices.",
-        "Collaborated with peers on coding challenges and algorithmic problem-solving competitions.",
-        "Contributed to organizing technical events and seminars for the student community."
+        "Co-developed an Aptitude Portal, building both frontend and backend modules to support user authentication, test workflows, and dynamic question rendering.",
+        "Designed and implemented the database schema, structuring entities for users, questions, categories, and results to ensure scalable data handling and efficient querying.",
+        "Developed RESTful APIs and integrated frontend–backend communication, enabling seamless assessment flows and real-time data updates.",
+        "Collaborated within a student development team, contributing to feature implementation, debugging, and iterative product improvements throughout the project lifecycle."
       ]
     }
   ],

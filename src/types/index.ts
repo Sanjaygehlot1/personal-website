@@ -28,14 +28,12 @@ export interface Certification {
 }
 
 export interface Project {
-  id: string;
+  id: number;
   title: string;
-  description: string;
+  category: 'Certification' | 'Project' | 'Badges';
   image: string;
-  tags: string[];
+  techStack: string[];
   link?: string;
-  category: 'Project' | 'Certifications' | 'Badge';
-  bgColor?: string;
 }
 
 export interface BlogPost {

@@ -3,70 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Award, FolderGit2, LayoutGrid, ExternalLink } from 'lucide-react';
 import SectionTitle from '../SectionTitle';
 import { Select, MenuItem } from '@mui/material';
-type Project = {
-  id: string;
-  title: string;
-  category: 'Certification' | 'Project';
-  image: string;
-  techStack: string[];
-  link?: string;
-};
-
-// const projects: Project[] = [
-//   {
-//     id: '1',
-//     title: 'Birthday Countdown',
-//     category: 'Project',
-//     image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800&auto=format&fit=crop&q=60',
-//     techStack: ['HTML', 'CSS', 'Javascript', 'VueJs'],
-//     link: '#',
-//   },
-//   {
-//     id: '2',
-//     title: 'NPM Card (npx adityacprtm)',
-//     category: 'Project',
-//     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=60',
-//     techStack: ['Node.js', 'NPM', 'JavaScript'],
-//     link: '#',
-//   },
-//   {
-//     id: '3',
-//     title: 'Transletin',
-//     category: 'Project',
-//     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60',
-//     techStack: ['React', 'Tailwind CSS', 'TypeScript'],
-//     link: '#',
-//   },
-//   {
-//     id: '4',
-//     title: 'AWS Cloud Architecture',
-//     category: 'Certification',
-//     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=60',
-//     techStack: ['AWS', 'Cloud', 'IAM', 'EC2'],
-//     link: '#',
-//   },
-//   {
-//     id: '5',
-//     title: 'Kubernetes Cluster Setup',
-//     category: 'Project',
-//     image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=60',
-//     techStack: ['Kubernetes', 'Docker', 'Helm', 'YAML'],
-//     link: '#',
-//   },
-//   {
-//     id: '6',
-//     title: 'Azure Solutions Architect',
-//     category: 'Certification',
-//     image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&auto=format&fit=crop&q=60',
-//     techStack: ['Azure', 'ARM Templates', 'Bicep'],
-//     link: '#',
-//   },
-// ];
+import { projectsInfo } from '../../data/portfolioData';
+import type { Project } from '../../types';
 
 const tabs = [
   { label: 'All', icon: <LayoutGrid size={14} /> },
-  { label: 'Certifications', icon: <Award size={14} /> },
   { label: 'Projects', icon: <FolderGit2 size={14} /> },
+  { label: 'Certifications', icon: <Award size={14} /> },
+  { label: 'Badges', icon: <Award size={14} /> },
 ];
 
 const PortfolioCard = ({ title, category, image, techStack, link }: Project) => {
@@ -154,9 +98,10 @@ const PortfolioCard = ({ title, category, image, techStack, link }: Project) => 
 const Portfolio = () => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const filtered = projects.filter((p) => {
-    if (activeTab === 1) return p.category === 'Certification';
-    if (activeTab === 2) return p.category === 'Project';
+  const filtered = projectsInfo.filter((p) => {
+    if (activeTab === 1) return p.category === 'Project';
+    if (activeTab === 2) return p.category === 'Certification';
+    if (activeTab === 3) return p.category === 'Badges';
     return true;
   });
 
@@ -242,7 +187,7 @@ const Portfolio = () => {
 
       {filtered.length === 0 && (
         <div className="text-center py-24 text-white/30 text-sm tracking-wide">
-          No items found.
+          No Worries. will get one soon..
         </div>
       )}
     </div>

@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { User, FileText, Codesandbox, BookOpen, Mail } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import ProfileHeader from './components/Header';
 import Resume from './components/sections/Resume';
@@ -8,65 +6,47 @@ import Contact from './components/sections/Contact';
 import GeometricSBackground from './components/GeometricS';
 import About from './components/sections/About';
 import Blog from './components/sections/Blogs';
+import { Routes, Route, Navigate } from "react-router-dom";
+import BlogPost from "./components/BlogPosts";
 import { MobileSidebar } from './components/MobileSideBar';
 
-
-const menuItems = [
-  { id: 'about',     icon: <User size={20} />,     label: 'About' },
-  { id: 'resume',    icon: <FileText size={20} />,  label: 'Resume' },
-  { id: 'portfolio', icon: <Codesandbox size={20} />, label: 'Portfolio' },
-  { id: 'blog',      icon: <BookOpen size={20} />,  label: 'Blog' },
-  { id: 'contact',   icon: <Mail size={20} />,      label: 'Contact' },
-];
-
-
 function App() {
-  const [activeSection, setActiveSection] = useState('resume');
-
-  const renderContent = () => {
-    switch (activeSection) {
-      case 'about':     return <About />;
-      case 'resume':    return <Resume />;
-      case 'portfolio': return <Portfolio />;
-      case 'blog':      return <Blog />;
-      case 'contact':   return <Contact />;
-      default:          return <Resume />;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#1d1e24]">
       <GeometricSBackground />
 
-      
       <div className="md:hidden fixed top-0 left-0 right-0 z-50">
-        <MobileSidebar activeSection={activeSection} setSection={setActiveSection} menuItems={menuItems}/>
+        <MobileSidebar />
       </div>
 
-      
       <div className="md:hidden h-[68px]" />
 
       <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 md:py-12">
+        <ProfileHeader />
 
-        <div className="w-full mb-7">
-          <ProfileHeader />
-        </div>
+        <div className="mt-6 flex flex-col md:flex-row gap-6">
 
-        <div className="flex  flex-col md:flex-row md:items-start gap-6">
-
-          <div className="hidden md:block min-w-[150px] sticky top-4 z-10 ">
-            <Sidebar activeSection={activeSection} setSection={setActiveSection} />
+          <div className="hidden md:block w-[150px] shrink-0">
+            <div className="sticky top-10">
+              <Sidebar />
+            </div>
           </div>
 
           <div className="flex-1 w-full">
-            <div
-              className="
-                bg-[#23262b] rounded-2xl border border-white/[0.08]
-                min-h-[500px] relative overflow-hidden
-                shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]
-              "
-            >
-              {renderContent()}
+            <div className="bg-[#23262b] rounded-2xl border border-white/[0.08] min-h-[500px] relative overflow-hidden shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
+
+              <div className="w-full h-full p-4 md:p-6">
+                <Routes>
+                  <Route path="/" element={<Navigate to="/resume" />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/resume" element={<Resume />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </div>
+
             </div>
           </div>
 

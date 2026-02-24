@@ -70,3 +70,35 @@ html {
     opacity: 0.5;
   }
 } */ 
+
+@layer components {
+
+  .blog-content h1 {
+    @apply text-4xl font-bold mb-6 tracking-tight;
+  }
+
+  .blog-content h2 {
+    @apply text-2xl font-semibold mt-10 mb-4 text-white;
+  }
+
+  .blog-content p {
+    @apply text-gray-300 leading-7 mb-4;
+  }
+
+  .blog-content strong {
+    @apply text-white;
+  }
+
+  .blog-content ul {
+    @apply list-disc pl-6 space-y-2 text-gray-300;
+  }
+
+  .blog-content pre {
+    @apply bg-black/40 p-4 rounded-xl overflow-x-auto my-6;
+  }
+
+  .blog-content code {
+    @apply text-blue-400;
+  }
+
+}

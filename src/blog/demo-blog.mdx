@@ -1,0 +1,242 @@
+export const meta = {
+  title: "Docker - A Complete Guide",
+  date: "2026-02-24",
+  tags: ["cicd", "aws", "docker"]
+}
+
+
+
+# Docker Demystified: Containerize Everything
+
+If you've ever heard a colleague say *"works on my machine"* — and then watched a deployment crumble in production — you already understand the problem Docker was built to solve.
+
+Docker is a platform that lets you package your application and all its dependencies into a single, portable unit called a **container**. That container runs identically on your laptop, your colleague's machine, and your cloud server. No more environment mismatches.
+
+---
+
+## Why Containers? A Quick Mental Model
+
+Think of a container like a shipping container on a cargo ship. It doesn't matter what's inside — furniture, electronics, food — the container has a standard interface, so any ship, truck, or crane can handle it. Similarly, a Docker container wraps your app in a standard interface that any Docker-capable machine can run.
+
+The key difference from a virtual machine (VM) is that containers **share the host OS kernel** rather than emulating an entire operating system. This makes them dramatically lighter and faster to spin up.
+
+> 💡 **Note:** A VM might take minutes to boot and consume gigabytes of RAM. A Docker container typically starts in **milliseconds** and uses only the memory your app actually needs.
+
+---
+
+## Core Concepts
+
+Before you write a single command, you need to know three things:
+
+**Images** are read-only blueprints. Think of them as a recipe. They describe the OS layer, runtime, dependencies, and your application code — all stacked in layers.
+
+**Containers** are running instances of images. You can spin up dozens of containers from a single image. They are ephemeral by default — when they stop, their internal state is gone (unless you use volumes).
+
+**Registries** are where images live. Docker Hub is the public default, but you can also use GitHub Container Registry, AWS ECR, or host your own.
+
+---
+
+## Installing Docker
+
+Head to [docs.docker.com](https://docs.docker.com/get-docker/) and install Docker Desktop for your platform. Once installed, verify it works:
+
+```bash
+docker --version
+# Docker version 26.1.0, build a5ee5b1
+```
+
+---
+
+## Your First Container
+
+Let's run an Nginx web server in under 10 seconds:
+
+```bash
+docker run -d -p 8080:80 --name my-nginx nginx
+```
+
+Breaking this down:
+
+- `-d` — detached mode (runs in the background)
+- `-p 8080:80` — maps port 8080 on your machine to port 80 inside the container
+- `--name my-nginx` — gives the container a friendly name
+- `nginx` — the image to use (pulled from Docker Hub automatically)
+
+Open your browser at `http://localhost:8080` and you'll see the Nginx welcome page. You just ran a production-grade web server without installing anything except Docker.
+
+To stop and remove it:
+
+```bash
+docker stop my-nginx
+docker rm my-nginx
+```
+
+---
+
+## Writing a Dockerfile
+
+A `Dockerfile` is a plain text file that tells Docker how to build your image. Here's one for a simple Node.js API:
+
+```dockerfile
+# Use the official Node.js LTS image as base
+FROM node:20-alpine
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Copy dependency manifests first (layer caching trick)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --omit=dev
+
+# Copy the rest of the application
+COPY . .
+
+# Expose the port the app listens on
+EXPOSE 3000
+
+# Default command to run the app
+CMD ["node", "src/index.js"]
+```
+
+> 🚀 **Tip:** Copying `package*.json` **before** the rest of your source code is a classic optimization. Docker caches each layer — if your source changes but your dependencies don't, it skips the `npm ci` step entirely on the next build.
+
+Build your image:
+
+```bash
+docker build -t my-node-api:latest .
+```
+
+Run it:
+
+```bash
+docker run -d -p 3000:3000 my-node-api:latest
+```
+
+---
+
+## Docker Compose: Multi-Service Apps
+
+Real applications rarely run in isolation. You need a database, a cache, maybe a message queue. **Docker Compose** lets you define and run all of them together with a single YAML file.
+
+Here's a `docker-compose.yml` for a Node.js app backed by PostgreSQL and Redis:
+
+```yaml
+version: "3.9"
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/mydb
+      REDIS_URL: redis://cache:6379
+    depends_on:
+      - db
+      - cache
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  cache:
+    image: redis:7-alpine
+
+volumes:
+  postgres_data:
+```
+
+Start everything with:
+
+```bash
+docker compose up -d
+```
+
+Stop and tear it down:
+
+```bash
+docker compose down
+```
+
+Add `-v` to also remove the named volumes (useful in CI, destructive in production).
+
+---
+
+## Useful Commands Cheat Sheet
+
+```bash
+# List running containers
+docker ps
+
+# List all containers (including stopped)
+docker ps -a
+
+# View logs from a container
+docker logs -f my-nginx
+
+# Open a shell inside a running container
+docker exec -it my-nginx sh
+
+# List local images
+docker images
+
+# Remove an image
+docker rmi my-node-api:latest
+
+# Pull an image without running it
+docker pull postgres:16-alpine
+
+# Inspect container details (network, mounts, env)
+docker inspect my-nginx
+```
+
+---
+
+## Best Practices
+
+**Use specific image tags.** Never rely on `latest` in production — it's a moving target. Pin to a specific version like `node:20.12-alpine`.
+
+**Keep images small.** Use slim or Alpine base images. Multi-stage builds are your friend — build in one stage, copy only the artifacts into a minimal final image.
+
+**Don't run as root.** Add a non-root user in your Dockerfile:
+
+```dockerfile
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+```
+
+**Use `.dockerignore`.** Just like `.gitignore`, this prevents bloated builds by excluding `node_modules`, `.git`, test files, and secrets from the build context.
+
+```
+node_modules
+.git
+.env
+*.test.js
+coverage/
+```
+
+**Never bake secrets into images.** Use environment variables, Docker secrets, or a secrets manager at runtime.
+
+---
+
+## What's Next?
+
+Once you're comfortable with the basics, the natural next steps are:
+
+- **Docker volumes and bind mounts** for persistent and shared data
+- **Docker networks** for fine-grained container communication
+- **Multi-stage builds** to dramatically shrink production image sizes
+- **Kubernetes** for orchestrating containers at scale
+
+Docker has become table stakes in modern software development. Whether you're a solo developer shipping a side project or part of a team deploying microservices, containers give you reproducibility, isolation, and portability — all in one tidy package.
+
+---
+
+*Have questions or a tip to share? Drop it at my mail (sanjaygehlot1695@gmail.com).*
