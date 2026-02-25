@@ -67,8 +67,10 @@ const SkillGroup = ({ title, skills }: { title: string; skills: string[] }) => (
 
 const Resume = () => {
   return (
-    <div className="max-w-4xl font-normal text-base mx-auto px-4 py-10 space-y-12">
-      <SectionTitle title="Resume" />
+    <div className="md:p-7 text-white">
+       <div className="pt-8 ">
+        <SectionTitle title="Resume"/>
+      </div>
       <section>
         <SectionHeader icon={<Briefcase className="w-7 h-7" />} title="Experience" />
         <div className="mt-6">

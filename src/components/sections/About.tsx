@@ -33,9 +33,9 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-8">
-      <div className="max-w-6xl mx-auto">
-        <SectionTitle title="About Me" />
+    <div className="md:p-7 text-white">
+      <div className="pt-8 ">
+        <SectionTitle title="About" />
 
         <div className="mb-12">
           <p className="text-[#9ca3af] leading-relaxed text-base font-normal max-w-4xl mx-auto whitespace-pre-wrap">

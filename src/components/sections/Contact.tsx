@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Send } from "@mui/icons-material";
 import emailjs from '@emailjs/browser';
+import SectionTitle from "../SectionTitle";
 const Contact = () => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,10 +26,10 @@ const Contact = () => {
   }
 
   return (
-    <div className="p-8 md:p-12 text-white">
-      <h2 className="text-[38px] font-bold mb-2">Contact</h2>
-
-      <div className="w-[70px] h-[4px] rounded bg-gradient-to-r from-orange-400 to-blue-500 mb-8" />
+    <div className="md:p-7 text-white">
+       <div className="pt-8 ">
+        <SectionTitle title="Contact"/>
+      </div>
 
       <p className="text-gray-400 mb-8">
         Open for opportunities:{" "}
@@ -37,7 +38,7 @@ const Contact = () => {
 
       <h3 className="text-[26px] font-bold mb-6">Contact Form</h3>
 
-      <form onSubmit={sendEmail} className="space-y-6">
+      <form onSubmit={sendEmail} className="space-y-6 ">
         <div className="flex flex-col md:flex-row gap-6">
           <input
             type="text"

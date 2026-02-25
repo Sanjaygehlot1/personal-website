@@ -12,7 +12,7 @@ import {
   Mail,
 } from 'lucide-react';
 
-import { personalInfo } from '../data/portfolioData';
+import { personalInfo, projectsInfo } from '../data/portfolioData';
 
 interface ProfileHeaderProps {
   personalInfo?: {
@@ -39,8 +39,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
   const socialLinks = personalInfo?.socialLinks || [];
 
   const iconMap: any = {
-    facebook: Facebook,
-    twitter: Twitter,
     instagram: Instagram,
     linkedin: Linkedin,
     github: Github,
@@ -112,12 +110,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
               ) : (
                 <>
                   <button className="text-[#6b7280] hover:text-white transition cursor-pointer">
-                    <Facebook size={16} strokeWidth={1.8} />
-                  </button>
-                  <button className="text-[#6b7280] hover:text-white transition cursor-pointer">
-                    <Twitter size={16} strokeWidth={1.8} />
-                  </button>
-                  <button className="text-[#6b7280] hover:text-white transition cursor-pointer">
                     <Instagram size={16} strokeWidth={1.8} />
                   </button>
                   <button className="text-[#6b7280] hover:text-white transition cursor-pointer">
@@ -180,9 +172,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
 
             <div>
               <p className="text-[0.65rem] font-bold tracking-widest text-[#6b7280] mb-1">
-                STATUS
+                CURRENT ROLE
               </p>
-              <div className="text-[0.85rem]">🍉</div>
+              <div className="text-[0.85rem]">{personalInfo.status}</div>
             </div>
           </div>
         </div>

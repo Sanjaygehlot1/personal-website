@@ -11,15 +11,14 @@ export const skillsData: SkillsInfo = {
 export const personalInfo: PersonalInfo = {
   name: 'Sanjay Gehlot',
   title: 'Full Stack Developer | DevOps | Cloud Engineer',
-  email: 'email@example.com',
+  email: 'sanjaygehlot1695@gmail.com',
   location: 'Mumbai, IND',
   avatar: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771946050/mypic_yc81zl.jpg',
   cvUrl: 'https://drive.google.com/file/d/1FMu5SsHnfg9W9BccKadadMrsLGNIMrfg/view?usp=drive_link',
-  status: 'Open for opportunities',
+  status: 'AWS Intern',
   bio: 'Passionate Full Stack Developer with expertise in DevOps and Cloud Engineering. Specialized in building scalable applications and automating infrastructure.',
   socialLinks: [
-    { icon: 'X', url: 'https://x.com/', label: 'Twitter' },
-    { icon: 'instagram', url: 'https://instagram.com/', label: 'Instagram' },
+    { icon: 'instagram', url: 'https://www.instagram.com/sanjay_.095', label: 'Instagram' },
     { icon: 'linkedin', url: 'https://www.linkedin.com/in/sanjay-gehlot-62b7a0301/', label: 'LinkedIn' },
     { icon: 'github', url: 'https://github.com/Sanjaygehlot1', label: 'GitHub' },
     { icon: 'portfolio', url: 'https://yourportfolio.com', label: 'Portfolio' },

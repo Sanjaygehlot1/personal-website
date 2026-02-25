@@ -1,41 +1,82 @@
 import { posts } from "../../blog/posts";
 import { useNavigate } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
+import SectionTitle from "../SectionTitle";
+
+const COLORS: Record<string, string> = {
+  blue:    "59,130,246",
+  emerald: "16,185,129",
+  rose:    "244,63,94",
+  amber:   "245,158,11",
+  violet:  "139,92,246",
+  orange:  "249,115,22",
+};
+const COLOR_KEYS = Object.keys(COLORS);
+
+function getColor(slug: string, metaColor?: string) {
+  if (metaColor && COLORS[metaColor]) return COLORS[metaColor];
+  const sum = slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  return COLORS[COLOR_KEYS[sum % COLOR_KEYS.length]];
+}
 
 export default function Blog() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h2 className="text-3xl font-semibold mb-6">Blogs</h2>
+    <div className="md:p-7">
+      <div className="pt-8 ">
+        <SectionTitle title="Blogs"/>
+      </div>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="flex flex-col gap-2">
+        {posts.map((post) => {
+          const rgb = getColor(post.slug, post.meta.color);
+          const tags: string[] = post.meta.tags ?? (post.meta.category ? [post.meta.category] : []);
 
-        {posts.map((post) => (
-          <div
-            key={post.slug}
-            onClick={() => navigate(`/blog/${post.slug}`)}
-            className="
-              min-w-[280px] cursor-pointer
-              bg-white/5 border border-white/[0.08]
-              rounded-xl p-4
-              hover:border-blue-500 transition-all
-            "
-          >
-            <h3 className="text-lg font-semibold mb-2">
-              {post.meta.title}
-            </h3>
+          return (
+            <div
+              key={post.slug}
+              onClick={() => navigate(`/blog/${post.slug}`)}
+              className="group flex items-center gap-4 px-4 py-3.5 rounded-xl border border-white/[0.07] hover:border-white/[0.14] bg-white/[0.02] hover:bg-white/[0.04] cursor-pointer transition-all duration-150"
+            >
+              <div
+                className="shrink-0 w-2 h-2 rounded-full"
+                style={{ background: `rgb(${rgb})`, boxShadow: `0 0 6px rgba(${rgb},0.6)` }}
+              />
 
-            <p className="text-sm text-gray-400">
-              {post.meta.description}
-              <span className="text-xs text-gray-500 mt-2 block">
-                {post.meta.date}
-              </span>
-            </p>
+              <p className="flex-1 text-sm font-medium text-white/70 group-hover:text-white transition-colors duration-150 truncate">
+                {post.meta.title}
+              </p>
 
+              <div className="hidden sm:flex items-center gap-1.5 shrink-0">
+                {tags.slice(0, 2).map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[0.58rem] font-mono tracking-wide uppercase px-1.5 py-0.5 rounded"
+                    style={{
+                      color: `rgba(${rgb}, 0.85)`,
+                      background: `rgba(${rgb}, 0.08)`,
+                      border: `1px solid rgba(${rgb}, 0.18)`,
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-          </div>
-        ))}
+              {post.meta.date && (
+                <span className="hidden md:block shrink-0 text-[0.65rem] font-mono text-white/25">
+                  {post.meta.date}
+                </span>
+              )}
 
+              <ArrowUpRight
+                size={14}
+                className="shrink-0 text-white/20 group-hover:text-white/50 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-150"
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

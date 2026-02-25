@@ -1,326 +1,189 @@
 export const meta = {
-  title: "Linux - Startup Guide",
-  date: "2026-02-24",
-  tags: ["linux", "shell", "scripts"]
+title: "Linux - Startup Guide",
+date: "02-01-2026",
+tags: ["linux", "shell", "scripts"],
+author: "Sanjay Gehlot",
+excerpt: "Simple Linux starter guide for developers who want to actually use the terminal daily.",
+readingTime: "6 min read",
+color: "rose",
 }
 
 
-# Linux: Everything you need to know.
+You are probably using Linux already like your servers, containers, cloud VMs, even Android. Once you understand the basics, working in DevOps or backend feels way easier.
 
-You're probably running Linux right now without knowing it. Your web server almost certainly is. Your Android phone is. The cloud infrastructure your app lives on is. Linux is quietly everywhere — and once you truly learn it, you'll wonder how you ever worked without it.
-
-This isn't a beginner's "what is an operating system" post. This is a practical guide for developers who want to go from *using* Linux to *understanding* it.
+This is not theory heavy. Just the stuff you actually use daily.
 
 ---
 
-## What Linux Actually Is
+## What Linux Really Is
 
-Linux is a **kernel** — not an operating system in the complete sense. The kernel is the core piece of software that sits between your hardware and everything else. It manages memory, schedules processes, handles I/O, and talks to your CPU so nothing else has to.
+Linux is a **kernel**, not a full OS. Distros like Ubuntu, Debian, or Arch just bundle tools around it.
 
-What most people call "Linux" is actually a **distribution** (distro): the kernel bundled with a package manager, shell, init system, desktop environment, and hundreds of other tools. Ubuntu, Fedora, Arch, Debian — these are all Linux distributions, each making different choices about what to bundle and how to configure it.
-
-> 💡 **Note:** When you SSH into a server or spin up a container, you're almost always talking directly to the kernel through a shell — no desktop environment, no GUI. Just you and the terminal.
+When you SSH into a server, you’re basically talking to the kernel through a shell. No fancy UI, just commands doing real work.
 
 ---
 
-## The Filesystem: Everything Is a File
+## Filesystem Basics
 
-One of the most important ideas in Linux is that **everything is a file** — including hardware devices, network sockets, and processes. This isn't just a metaphor. You can literally read from `/dev/random` to get random bytes, or inspect `/proc/cpuinfo` to see your CPU details.
-
-Here's how the root filesystem is laid out:
+Everything in Linux is treated like a file (logs, devices, processes, configs).
 
 ```
 /
-├── bin/       # Essential binaries (ls, cp, bash)
-├── etc/       # System-wide config files
-├── home/      # User home directories
-├── var/       # Variable data: logs, caches, spool files
-├── tmp/       # Temporary files (cleared on reboot)
-├── usr/       # User-installed software and libraries
-├── proc/      # Virtual filesystem: running process info
-├── dev/       # Device files (disks, terminals, random)
-├── sys/       # Kernel/hardware interface
-└── root/      # Home directory for the root user
+├── bin
+├── etc
+├── home
+├── var
+├── usr
+├── proc
+├── dev
 ```
 
-Unlike Windows with its `C:\`, `D:\` drives, Linux has one unified tree. External drives and partitions get **mounted** into this tree at a mount point — e.g., a USB drive might appear at `/mnt/usb`.
+Unlike Windows drives, Linux has one single tree. External disks just mount somewhere inside it.
 
 ---
 
-## The Terminal: Your Real Interface
+![Linux Terminal Workflow](/images/linux.webp)
 
-The terminal is where Linux comes alive. Every operation you can do in a GUI can be done faster, scriptably, and remotely from the command line.
+---
+
+## Terminal Commands I Actually Use
 
 ### Navigation
 
 ```bash
-pwd              # Print working directory
-ls -lah          # List files: long format, all files, human sizes
-cd /etc/nginx    # Change directory
-cd ~             # Go home
-cd -             # Go back to last directory
+pwd
+ls -lah
+cd /etc
+cd ~
+cd -
 ```
 
-### Files and Directories
+### File Operations
 
 ```bash
-touch notes.txt              # Create empty file
-mkdir -p projects/linux      # Create nested directories
-cp -r src/ backup/           # Copy recursively
-mv old-name.txt new-name.txt # Move or rename
-rm -rf dist/                 # Delete directory (irreversible — be careful)
+touch file.txt
+mkdir -p projects/linux
+cp -r src/ backup/
+mv old.txt new.txt
+rm -rf dist/
 ```
 
-### Viewing Files
+### Viewing Logs
 
 ```bash
-cat /etc/os-release   # Print entire file
-less /var/log/syslog  # Paginated viewer (q to quit)
-head -20 server.log   # First 20 lines
-tail -f server.log    # Follow file in real time (great for logs)
+cat file.log
+head -20 file.log
+tail -f file.log
 ```
 
 ---
 
-## Permissions: Who Can Do What
-
-Every file in Linux has an owner, a group, and a set of permissions for three audiences: the owner, the group, and everyone else.
+## Permissions (Quick Understanding)
 
 ```bash
-ls -l myfile.sh
-# -rwxr-xr-- 1 alex developers 2048 Feb 24 10:30 myfile.sh
+-rwxr-xr-- file.sh
 ```
 
-Breaking down `-rwxr-xr--`:
+* Owner → rwx
+* Group → r-x
+* Others → r--
 
-- `-` — regular file (`d` = directory, `l` = symlink)
-- `rwx` — owner can **r**ead, **w**rite, e**x**ecute
-- `r-x` — group can read and execute, not write
-- `r--` — everyone else can only read
-
-Change permissions with `chmod`, change ownership with `chown`:
-
-```bash
-chmod +x deploy.sh          # Make executable
-chmod 644 config.yml        # rw-r--r--
-chown alex:developers app/  # Change owner and group
-```
-
-> 🔒 **Tip:** The numeric mode `755` means `rwxr-xr-x` — the standard for executables and directories. `644` means `rw-r--r--` — standard for config files. You'll use these constantly.
-
----
-
-## Processes: What's Running
-
-Linux is a multitasking OS — dozens to thousands of processes run simultaneously. Here's how to inspect them:
-
-```bash
-ps aux              # All running processes
-top                 # Live process monitor
-htop                # Better live monitor (install separately)
-pgrep nginx         # Find PID by name
-kill 1234           # Send SIGTERM to process 1234
-kill -9 1234        # Force kill (SIGKILL) — last resort
-pkill nginx         # Kill by name
-```
-
-Every process has a **PID** (Process ID) and a **PPID** (Parent PID). The very first process started by the kernel is `init` (or `systemd` on modern distros), with PID 1. Every other process is a descendant of it.
-
-### Background Jobs
-
-```bash
-./long-task.sh &     # Run in background
-jobs                 # List background jobs
-fg %1                # Bring job 1 to foreground
-Ctrl+Z               # Suspend current job
-nohup ./server.sh &  # Run in background, survive terminal close
-```
-
----
-
-## Package Management
-
-How you install software depends on your distro. Each distro family has its own package manager:
-
-```bash
-# Debian / Ubuntu
-sudo apt update && sudo apt install nginx
-
-# Fedora / RHEL / CentOS
-sudo dnf install nginx
-
-# Arch Linux
-sudo pacman -S nginx
-
-# macOS (Homebrew — not Linux, but same idea)
-brew install nginx
-```
-
-Always run an update before installing — `apt update` refreshes the package index, `apt upgrade` actually upgrades installed packages.
-
----
-
-## systemd: Managing Services
-
-Most modern Linux distros use **systemd** as the init system. It starts services on boot, manages dependencies between them, and handles logging.
-
-```bash
-# Service management
-sudo systemctl start nginx      # Start a service
-sudo systemctl stop nginx       # Stop it
-sudo systemctl restart nginx    # Restart
-sudo systemctl enable nginx     # Start on boot
-sudo systemctl disable nginx    # Don't start on boot
-sudo systemctl status nginx     # Check status + recent logs
-
-# Logs via journald
-journalctl -u nginx             # All logs for nginx
-journalctl -u nginx -f          # Follow live
-journalctl -u nginx --since "1 hour ago"
-```
-
----
-
-## Piping and Redirection: The Unix Superpower
-
-The real magic of the terminal is **composability**. Small tools, chained together with pipes (`|`), can accomplish complex tasks elegantly.
-
-```bash
-# Count lines in a file
-wc -l server.log
-
-# Find all error lines, count them
-grep "ERROR" server.log | wc -l
-
-# Top 10 most common IPs in access log
-awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10
-
-# Find large files over 100MB
-find / -type f -size +100M 2>/dev/null
-
-# Replace text across all .js files
-find . -name "*.js" | xargs sed -i 's/localhost/prod.example.com/g'
-```
-
-Redirection lets you write output to files:
-
-```bash
-echo "hello" > file.txt      # Write (overwrite)
-echo "world" >> file.txt     # Append
-command 2>&1 | tee out.log   # Stderr to stdout, also save to file
-```
-
----
-
-## SSH: Working Remotely
-
-SSH is how you access remote Linux servers. Once you set it up, you'll use it constantly.
-
-```bash
-ssh user@192.168.1.10            # Basic connection
-ssh -i ~/.ssh/mykey.pem user@ip  # With specific key
-ssh -L 3000:localhost:3000 user@ip  # Port forwarding
-```
-
-Set up key-based auth so you never type passwords:
-
-```bash
-# Generate a key pair
-ssh-keygen -t ed25519 -C "your@email.com"
-
-# Copy public key to server
-ssh-copy-id user@your-server.com
-```
-
-Store connection shortcuts in `~/.ssh/config`:
-
-```
-Host myserver
-  HostName 192.168.1.10
-  User alex
-  IdentityFile ~/.ssh/mykey
-```
-
-Now `ssh myserver` is all you need.
-
----
-
-## Shell Scripting: Automate Everything
-
-Bash scripts let you automate repetitive tasks. Here's a practical deployment script:
-
-```bash
-#!/bin/bash
-set -euo pipefail   # Exit on error, undefined vars, pipe failures
-
-APP_DIR="/var/www/myapp"
-BACKUP_DIR="/var/backups/myapp"
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-
-echo "── Starting deploy at $TIMESTAMP ──"
-
-# Backup current version
-echo "Backing up..."
-cp -r "$APP_DIR" "$BACKUP_DIR/backup_$TIMESTAMP"
-
-# Pull latest code
-cd "$APP_DIR"
-git pull origin main
-
-# Install dependencies and build
-npm ci --omit=dev
-npm run build
-
-# Restart service
-sudo systemctl restart myapp
-
-echo "✓ Deploy complete"
-```
-
-Make it executable and run it:
+Commands you’ll use a lot:
 
 ```bash
 chmod +x deploy.sh
-./deploy.sh
+chmod 644 config.yml
+chown user:group folder/
 ```
 
 ---
 
-## Essential Tools You Should Know
-
-**`grep`** — search text with patterns. Add `-r` to recurse directories, `-i` for case-insensitive, `-n` for line numbers.
-
-**`sed`** — stream editor for find-and-replace and text transformation in pipelines.
-
-**`awk`** — column-aware text processor. Perfect for log files and CSVs.
-
-**`curl`** — make HTTP requests from the terminal. Essential for testing APIs.
-
-**`jq`** — parse and query JSON in the terminal. Combine with `curl` for API work.
-
-**`tmux`** — terminal multiplexer. Split your terminal, run multiple sessions, and keep processes alive after disconnect.
-
-**`rsync`** — efficient file sync and remote transfer. Better than `scp` for directories.
+## Processes & Monitoring
 
 ```bash
-# Test an API endpoint
-curl -s https://api.example.com/health | jq '.status'
-
-# Sync a folder to a remote server
-rsync -avz ./dist/ user@server:/var/www/app/
-
-# Start a tmux session
-tmux new -s dev
+ps aux
+top
+pgrep nginx
+kill 1234
+pkill nginx
 ```
 
----
-
-## What's Next?
-
-Once you're comfortable with the basics, the natural progression is understanding Linux networking (`ip`, `netstat`, `iptables`, `ufw`), writing more sophisticated shell scripts with functions and error handling, learning `vim` or `neovim` for terminal-based editing, and diving into Linux security hardening for production servers.
-
-Linux rewards curiosity. The more you explore — reading man pages, tracing what a command actually does, understanding how the kernel handles a system call — the more it gives back. It's the one skill that compounds across every layer of the stack.
+If something breaks in production, these commands become your best friends.
 
 ---
 
-*Something I missed? Found a better way to do something? Drop it in the comments.*
+## Package Management (Install Stuff Fast)
+
+```bash
+sudo apt update
+sudo apt install nginx
+```
+
+Different distros = different managers, but concept stays same.
+
+---
+
+## systemd Services
+
+```bash
+sudo systemctl start nginx
+sudo systemctl restart nginx
+sudo systemctl status nginx
+journalctl -u nginx -f
+```
+
+Basically how servers stay alive after reboot.
+
+---
+
+## Pipes = Linux Superpower
+
+```bash
+grep "ERROR" app.log | wc -l
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head
+```
+
+Small commands + pipes = insane power.
+
+---
+
+## SSH (Daily DevOps Tool)
+
+```bash
+ssh user@server
+ssh -i key.pem user@ip
+ssh -L 3000:localhost:3000 user@ip
+```
+
+Once key auth is setup, password login feels ancient.
+
+---
+
+## Simple Bash Script Example
+
+```bash
+#!/bin/bash
+set -e
+
+echo "Starting deploy..."
+git pull origin main
+npm ci --omit=dev
+npm run build
+sudo systemctl restart myapp
+```
+
+Automation is where Linux really starts paying off.
+
+---
+
+## Tools Worth Knowing
+
+* grep → search logs
+* sed → replace text
+* awk → process columns
+* curl → test APIs
+* jq → parse JSON
+
+---
+
+Linux is basically the backbone of modern infra. The more comfortable you get with the terminal, the less you depend on GUIs — and honestly, things start breaking less too.
