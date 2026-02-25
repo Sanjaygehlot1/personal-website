@@ -59,7 +59,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
           />
         </div>
 
-        <div className="absolute -top-[45px] left-[162] md:left-[45px] left-1/2 md:left-[45px] -translate-x-1/2 md:translate-x-0 z-20">
+        <div className="absolute -top-[45px] left-1/2 md:left-[45px] -translate-x-1/2 md:translate-x-0 z-20">
           <div className="relative w-[140px] h-[140px] flex items-center justify-center">
             <div className="absolute inset-0 bg-[#1d1e24] rounded-[40px] shadow-[0_-10px_50px_rgba(0,0,0,0.2)]" />
             
