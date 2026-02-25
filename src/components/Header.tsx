@@ -4,7 +4,6 @@ import {
   Linkedin,
   Github,
   Globe,
-  Flag,
   Download,
   MapPin,
   Mail,
