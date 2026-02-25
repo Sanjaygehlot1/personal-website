@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Briefcase, GraduationCap, Code2, Terminal, Trophy, ChevronRight } from 'lucide-react';
+import React from 'react';
+import { Briefcase, GraduationCap, Code2, Trophy, ChevronRight } from 'lucide-react';
 import { resumeData } from '../../data/resumeData';
 import SectionTitle from '../SectionTitle';
 

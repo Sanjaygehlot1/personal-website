@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Facebook,
-  Twitter,
   Instagram,
   Linkedin,
   Github,
@@ -12,7 +10,7 @@ import {
   Mail,
 } from 'lucide-react';
 
-import { personalInfo, projectsInfo } from '../data/portfolioData';
+import { personalInfo } from '../data/portfolioData';
 
 interface ProfileHeaderProps {
   personalInfo?: {

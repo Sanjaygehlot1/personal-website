@@ -1,4 +1,3 @@
-import type React from "react";
 import { User, FileText, Codesandbox, BookOpen, Mail } from 'lucide-react';
 import { useNavigate, useLocation } from "react-router-dom";
 

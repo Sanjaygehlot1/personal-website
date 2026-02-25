@@ -1,5 +1,5 @@
 
-import type { PersonalInfo, Experience, Education, Certification, Project, BlogPost, SkillsInfo } from '../types/index';
+import type { PersonalInfo, Project, SkillsInfo } from '../types/index';
 
 export const skillsData: SkillsInfo = {
   frontend: ['React', 'TypeScript', 'Next.js', 'Vue.js', 'Tailwind CSS', 'Redux'],

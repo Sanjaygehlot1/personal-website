@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Award, FolderGit2, LayoutGrid, ExternalLink } from 'lucide-react';
 import SectionTitle from '../SectionTitle';
