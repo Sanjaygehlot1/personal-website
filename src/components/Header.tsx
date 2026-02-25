@@ -43,6 +43,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
     portfolio: Globe,
   };
 
+  const portfolioLink = window.location.origin;
+
   return (
     <div className="flex justify-center w-full mt-[45px]">
       <div className="relative w-full max-w-[1100px] rounded-[28px] border border-[#333] bg-[#23262b] shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-visible">
@@ -62,7 +64,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
         <div className="absolute -top-[45px] left-1/2 md:left-[45px] -translate-x-1/2 md:translate-x-0 z-20">
           <div className="relative w-[140px] h-[140px] flex items-center justify-center">
             <div className="absolute inset-0 bg-[#1d1e24] rounded-[40px] shadow-[0_-10px_50px_rgba(0,0,0,0.2)]" />
-            
+
             <div className="relative w-[120px] h-[120px] rounded-full bg-[#23262b] flex items-center justify-center border-[10px] border-[#23262b]">
               <img
                 src={avatar}
@@ -76,7 +78,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
           </div>
         </div>
         <div className="relative z-10 px-6 md:px-8 py-10 md:py-[14px] flex flex-col md:flex-row items-center justify-between">
-          
+
           <div className="hidden md:block w-[170px] flex-shrink-0" />
 
           <div className="flex-1 text-center md:text-left pt-[45px] md:pt-0 w-full mt-[30px] md:mt-0">
@@ -116,11 +118,18 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
                   <button className="text-[#6b7280] hover:text-white transition cursor-pointer">
                     <Github size={16} strokeWidth={1.8} />
                   </button>
-                  <button className="text-[#6b7280] hover:text-white transition cursor-pointer">
-                    <Flag size={16} strokeWidth={1.8} />
-                  </button>
+                  
                 </>
               )}
+              <a
+                key={"portfolio"}
+                href={portfolioLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#6b7280] hover:text-white transition"
+              >
+                <Globe size={16} strokeWidth={1.8} />
+              </a>
             </div>
           </div>
 

@@ -8,6 +8,7 @@ export const skillsData: SkillsInfo = {
   cloud: ['AWS', 'Google Cloud', 'Azure', 'DigitalOcean', 'Vercel', 'Netlify'],
 }
 
+
 export const personalInfo: PersonalInfo = {
   name: 'Sanjay Gehlot',
   title: 'Full Stack Developer | DevOps | Cloud Engineer',
@@ -21,7 +22,6 @@ export const personalInfo: PersonalInfo = {
     { icon: 'instagram', url: 'https://www.instagram.com/sanjay_.095', label: 'Instagram' },
     { icon: 'linkedin', url: 'https://www.linkedin.com/in/sanjay-gehlot-62b7a0301/', label: 'LinkedIn' },
     { icon: 'github', url: 'https://github.com/Sanjaygehlot1', label: 'GitHub' },
-    { icon: 'portfolio', url: 'https://yourportfolio.com', label: 'Portfolio' },
   ],
 };
 
