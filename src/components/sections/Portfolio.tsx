@@ -10,10 +10,10 @@ const tabs = [
   { label: 'All', icon: <LayoutGrid size={14} /> },
   { label: 'Projects', icon: <FolderGit2 size={14} /> },
   { label: 'Certifications', icon: <Award size={14} /> },
-  { label: 'Badges', icon: <Award size={14} /> },
+  { label: 'Badge', icon: <Award size={14} /> },
 ];
 
-const PortfolioCard = ({ title, category, image, techStack, link }: Project) => {
+const PortfolioCard = ({ title, category, image, techStack, link, buttonTitle }: Project) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -54,7 +54,7 @@ const PortfolioCard = ({ title, category, image, techStack, link }: Project) => 
           </span>
         </div>
 
-        <AnimatePresence>
+        {techStack && <AnimatePresence>
           {hovered && (
             <motion.div
               key="overlay"
@@ -73,6 +73,7 @@ const PortfolioCard = ({ title, category, image, techStack, link }: Project) => 
             </motion.div>
           )}
         </AnimatePresence>
+        }
       </div>
 
       <div className="mt-4 px-1">
@@ -84,7 +85,7 @@ const PortfolioCard = ({ title, category, image, techStack, link }: Project) => 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 active:scale-95 transition-all duration-200 text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-md"
           >
-            Website
+            {buttonTitle}
             <ExternalLink size={13} />
           </a>
         )}
@@ -101,7 +102,7 @@ const Portfolio = () => {
   const filtered = projectsInfo.filter((p) => {
     if (activeTab === 1) return p.category === 'Project';
     if (activeTab === 2) return p.category === 'Certification';
-    if (activeTab === 3) return p.category === 'Badges';
+    if (activeTab === 3) return p.category === 'Badge';
     return true;
   });
 

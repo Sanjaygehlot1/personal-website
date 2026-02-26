@@ -30,10 +30,11 @@ export interface Certification {
 export interface Project {
   id: number;
   title: string;
-  category: 'Certification' | 'Project' | 'Badges';
+  category: 'Certification' | 'Project' | 'Badge';
   image: string;
-  techStack: string[];
+  techStack?: string[];
   link?: string;
+  buttonTitle: 'Website' | 'Github' | 'Verify' | 'Open'
 }
 
 export interface BlogPost {
