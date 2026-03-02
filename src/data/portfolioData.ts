@@ -15,7 +15,7 @@ export const personalInfo: PersonalInfo = {
   email: 'sanjaygehlot1695@gmail.com',
   location: 'Mumbai, IND',
   avatar: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771946050/mypic_yc81zl.jpg',
-  cvUrl: 'https://drive.google.com/file/d/1FMu5SsHnfg9W9BccKadadMrsLGNIMrfg/view?usp=drive_link',
+  cvUrl: 'https://drive.google.com/file/d/1KBKKv0jYCGCxZ0q9h416DRk_bIyPVQmN/view?usp=drivesdk',
   status: 'AWS Intern',
   bio: 'Passionate Full Stack Developer with expertise in DevOps and Cloud Engineering. Specialized in building scalable applications and automating infrastructure.',
   socialLinks: [
