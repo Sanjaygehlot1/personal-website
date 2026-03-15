@@ -33,7 +33,7 @@ export const projectsInfo: Project[] = [
   { id: 3, category: 'Certification', title: 'Oracle Cloud Infrastructure 2025 Certified Foundations Associate', image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1772107954/Screenshot_2026-02-26_174153_gl40xw.png', link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=9A3207B59E9FA66D23E2FDB08F41DA2E5B3D07EAFA983514BCE960EAAA791DE5', buttonTitle: 'Verify' },
 
   
-  { id: 4, category: 'Project', title: 'OrgPulse | A github Organisation CLI Tool', techStack: ['Github APIs', 'Docker', 'Commander', 'Nock', 'P-limit'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771940348/Screenshot_214_nzheoa.png', link: 'https://github.com/Sanjaygehlot1/ReferMe', buttonTitle: 'Github' },
+  { id: 4, category: 'Project', title: 'OrgPulse | A github Organisation CLI Tool', techStack: ['Github APIs', 'Docker', 'Commander', 'Nock', 'P-limit'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1773582119/OrgPulseImg_ul4ocd.png', link: 'https://github.com/Sanjaygehlot1/ReferMe', buttonTitle: 'Github' },
 
   { id: 5, category: 'Project', title: 'X-Connect | Anonymous Messaging App', techStack: ['Nextjs', 'Reactjs', 'MongoDB', 'SSR' , 'ShadCN'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771941610/Screenshot_217_phpxiv.png', link: 'https://x-connect-tan.vercel.app/', buttonTitle: 'Website' },
 
