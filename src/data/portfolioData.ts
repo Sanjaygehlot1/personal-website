@@ -26,26 +26,24 @@ export const personalInfo: PersonalInfo = {
 };
 
 export const projectsInfo: Project[] = [
-  { id: 1, category: 'Project', title: 'Multi-Tier Cloud Infrastructure Automation', techStack: ['AWS', 'Jenkins', 'Terraform', 'Docker'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771943294/AWs_1_cug030.png', link: 'https://github.com/Sanjaygehlot1/terraform-jenkins-aws-cicd', buttonTitle: 'Github' },
+  { id: 1, category: 'Project', title: 'CareIt : Developers WellBeing', techStack: ['Nodejs', 'Reactjs', 'Typescript', 'Postgres', 'Expressjs', 'Resend', 'AI', 'Github APIs', 'Google APIs'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1774103101/Screenshot_2026-03-21_195446_psrtjx.png', link: 'https://careit.sanjaycodes.dev', buttonTitle: 'Live' },
 
-  { id: 2, category: 'Project', title: 'Flixora | Video Streaming Platform', techStack: ['MongoDB', 'Expressjs', 'Reactjs', 'Nodejs'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771941616/Screenshot_218_u5om5l.png', link: 'https://flixora.vercel.app/', buttonTitle: 'Website' },
+  { id: 2, category: 'Project', title: 'Multi-Tier Cloud Infrastructure Automation', techStack: ['AWS', 'Jenkins', 'Terraform', 'Docker'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771943294/AWs_1_cug030.png', link: 'https://github.com/Sanjaygehlot1/terraform-jenkins-aws-cicd', buttonTitle: 'Github' },
 
-  { id: 3, category: 'Certification', title: 'Oracle Cloud Infrastructure 2025 Certified Foundations Associate', image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1772107954/Screenshot_2026-02-26_174153_gl40xw.png', link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=9A3207B59E9FA66D23E2FDB08F41DA2E5B3D07EAFA983514BCE960EAAA791DE5', buttonTitle: 'Verify' },
+  { id: 3, category: 'Project', title: 'Flixora | Video Streaming Platform', techStack: ['MongoDB', 'Expressjs', 'Reactjs', 'Nodejs'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771941616/Screenshot_218_u5om5l.png', link: 'https://flixora.vercel.app/', buttonTitle: 'Live' },
+
+  { id: 4, category: 'Certification', title: 'Oracle Cloud Infrastructure 2025 Certified Foundations Associate', image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1772107954/Screenshot_2026-02-26_174153_gl40xw.png', link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=9A3207B59E9FA66D23E2FDB08F41DA2E5B3D07EAFA983514BCE960EAAA791DE5', buttonTitle: 'Verify' },
 
   
-  { id: 4, category: 'Project', title: 'OrgPulse | A github Organisation CLI Tool', techStack: ['Github APIs', 'Docker', 'Commander', 'Nock', 'P-limit'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1773582119/OrgPulseImg_ul4ocd.png', link: 'https://github.com/Sanjaygehlot1/ReferMe', buttonTitle: 'Github' },
+  { id: 5, category: 'Project', title: 'OrgPulse | A github Organisation CLI Tool', techStack: ['Github APIs', 'Docker', 'Commander', 'Nock', 'P-limit'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1773582119/OrgPulseImg_ul4ocd.png', link: 'https://github.com/Sanjaygehlot1/ReferMe', buttonTitle: 'Github' },
 
-  { id: 5, category: 'Project', title: 'X-Connect | Anonymous Messaging App', techStack: ['Nextjs', 'Reactjs', 'MongoDB', 'SSR' , 'ShadCN'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771941610/Screenshot_217_phpxiv.png', link: 'https://x-connect-tan.vercel.app/', buttonTitle: 'Website' },
+  { id: 6, category: 'Project', title: 'X-Connect | Anonymous Messaging App', techStack: ['Nextjs', 'Reactjs', 'MongoDB', 'SSR' , 'ShadCN'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771941610/Screenshot_217_phpxiv.png', link: 'https://x-connect-tan.vercel.app/', buttonTitle: 'Live' },
 
-  { id: 6, category: 'Project', title: 'ReferIt | A refer credit App', techStack: ['Nextjs', 'Reactjs', 'MongoDB', 'SSR', 'ShadCN'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771940348/Screenshot_214_nzheoa.png', link: 'https://github.com/Sanjaygehlot1/ReferMe', buttonTitle: 'Github'},
+  { id: 7, category: 'Project', title: 'ReferIt | A refer credit App', techStack: ['Nextjs', 'Reactjs', 'MongoDB', 'SSR', 'ShadCN'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771940348/Screenshot_214_nzheoa.png', link: 'https://github.com/Sanjaygehlot1/ReferMe', buttonTitle: 'Github'},
  
-  { id: 7, category: 'Badge', title: 'LeetCode | 50 Days Badge', techStack: ['LeetCode', 'DSA'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771943496/download_fff07y.png', link: 'https://leetcode.com/u/Sanjay0907/', buttonTitle: 'Open' },
+  { id: 8, category: 'Badge', title: 'LeetCode | 50 Days Badge', techStack: ['LeetCode', 'DSA'], image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1771943496/download_fff07y.png', link: 'https://leetcode.com/u/Sanjay0907/', buttonTitle: 'Open' },
 
-  { id: 8, category: 'Badge', title: 'OCI Certified Assosiate Badge', image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1772107938/OCI25FNDCFA_q7trpc.jpg', link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=9A3207B59E9FA66D23E2FDB08F41DA2E5B3D07EAFA983514BCE960EAAA791DE5', buttonTitle: 'Open' },
-
-
-
-
+  { id: 9, category: 'Badge', title: 'OCI Certified Assosiate Badge', image: 'https://res.cloudinary.com/dh9bwsdjp/image/upload/v1772107938/OCI25FNDCFA_q7trpc.jpg', link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=9A3207B59E9FA66D23E2FDB08F41DA2E5B3D07EAFA983514BCE960EAAA791DE5', buttonTitle: 'Open' }
 
 ]
 

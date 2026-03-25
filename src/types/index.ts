@@ -34,7 +34,7 @@ export interface Project {
   image: string;
   techStack?: string[];
   link?: string;
-  buttonTitle: 'Website' | 'Github' | 'Verify' | 'Open'
+  buttonTitle: 'Live' | 'Github' | 'Verify' | 'Open'
 }
 
 export interface BlogPost {
